@@ -15,20 +15,20 @@ lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
 
 // input curve for steer input during driver control
 lemlib::ExpoDriveCurve steer_curve(3, // joystick deadband out of 127
-                                  10, // minimum output where drivetrain will move out of 127
+                               10, // minimum output where drivetrain will move out of 127
                                   1.019 // expo curve gain
 );
 
-pros::MotorGroup left_motor_group({12, 13, 14}, pros::MotorGears::red);
+pros::MotorGroup right_motor_group({12, 13, 14}, pros::MotorGears::blue);
 // right motor group
-pros::MotorGroup right_motor_group({-17, -18, -19}, pros::MotorGears::red);
+pros::MotorGroup left_motor_group({-17, -18, -19}, pros::MotorGears::blue);
 
 // drivetrain settings
 lemlib::Drivetrain drivetrain(&left_motor_group, // left motor group
                               &right_motor_group, // right motor group
-                              10, // 10 inch track width
-                              lemlib::Omniwheel::NEW_4, // using new 4" omnis
-                              600, // drivetrain rpm is 360
+                              12, // 10 inch track width
+                               lemlib::Omniwheel::NEW_325, // using new 4" omnis
+                              450, // drivetrain rpm is 360
                               2 // horizontal drift is 2 (for now)
 );
 
@@ -42,7 +42,7 @@ pros::Rotation horizontal_encoder(19);
 lemlib::TrackingWheel vertical_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_275, -2.5);
 
 // odometry settings
-lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
+lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
                             nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
@@ -50,9 +50,9 @@ lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel
 );
 
 // lateral PID controller
-lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
+lemlib::ControllerSettings lateral_controller(100, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              3, // derivative gain (kD)
+                                              500, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in inches
                                               100, // small error range timeout, in milliseconds
@@ -62,9 +62,9 @@ lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
 );
 
 // angular PID controller
-lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
-                                              0, // integral gain (kI)
-                                              10, // derivative gain (kD)
+lemlib::ControllerSettings angular_controller(13, // proportional gain (kP)
+                                              0.005, // integral gain (kI)
+                                              70, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in degrees
                                               100, // small error range timeout, in milliseconds
@@ -154,13 +154,29 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-
+ASSET(one_txt);
+ASSET(two_txt);
+ASSET(pidTuning_txt);
+ASSET(test1_txt);
 void autonomous() {
     switch (SW::selector::get_auton()) {
         case 0:
+            //path
+            chassis.setPose(58, -58, 0);
+            chassis.follow(test1_txt,15,3000);
+
+            //anuglar tuning
+            //chassis.turnToHeading(90, 99000);
+
+            //lateral tuning
+            // chassis.setPose(58, -58, 270);
+            // chassis.moveToPose(0, -58, 270, 3000);
+    
             break;
         case 1:
             printf("Red Auton 1\n");
+            // chassis.turnToHeading(90, 99000);
+            //havent tried, was told to write pneumatics code
             break;
         case 2:
             printf("Red Auton 2\n");
@@ -215,7 +231,7 @@ void opcontrol() {
         int rightX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
         // move the robot
-        chassis.arcade(leftY, rightX*-1,false, 0.55);
+        chassis.arcade(leftY, rightX,false, 0.55);
 
         // delay to save resources
         pros::delay(25);

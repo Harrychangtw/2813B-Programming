@@ -9,7 +9,6 @@ pros::Mutex auton_mtx;
 lv_obj_t* redBtnm;
 lv_obj_t* blueBtnm;
 lv_obj_t* skillsBtnm;
-
 // Add the list of autonomous routines buttons here
 int auton;
 const char* btnmMap[11] = {"", "", "", "", "", "", "", "", "", "", ""};
