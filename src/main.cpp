@@ -7,8 +7,8 @@
 ASSET(example_txt);
 
 //initialize
-pros::MotorGroup right_motor_group({12, 13, 14}, pros::MotorGears::blue);
-pros::MotorGroup left_motor_group({-17, -18, -19}, pros::MotorGears::blue);
+pros::MotorGroup left_motor_group({-15, -13, -14}, pros::MotorGears::blue);
+pros::MotorGroup right_motor_group({17, 18, 19}, pros::MotorGears::blue);
 pros::MotorGroup intake({20});
 pros::adi::Pneumatics hook{1,false};
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
