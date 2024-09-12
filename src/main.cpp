@@ -6,8 +6,13 @@
 
 ASSET(example_txt);
 
-//motor set up
-// left motor group
+//initialize
+pros::MotorGroup right_motor_group({12, 13, 14}, pros::MotorGears::blue);
+pros::MotorGroup left_motor_group({-17, -18, -19}, pros::MotorGears::blue);
+pros::MotorGroup intake({20});
+pros::adi::Pneumatics hook{1,false};
+pros::Controller controller(pros::E_CONTROLLER_MASTER);
+
 lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
                                      10, // minimum output where drivetrain will move out of 127
                                      1.019 // expo curve gain
@@ -19,9 +24,8 @@ lemlib::ExpoDriveCurve steer_curve(3, // joystick deadband out of 127
                                   1.019 // expo curve gain
 );
 
-pros::MotorGroup right_motor_group({12, 13, 14}, pros::MotorGears::blue);
-// right motor group
-pros::MotorGroup left_motor_group({-17, -18, -19}, pros::MotorGears::blue);
+
+
 
 // drivetrain settings
 lemlib::Drivetrain drivetrain(&left_motor_group, // left motor group
@@ -222,18 +226,34 @@ void autonomous() {
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-
-	while (true) {
-        // get left y and right x positions
-        int leftY = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        int rightX = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-
-        // move the robot
-        chassis.arcade(leftY, rightX,false, 0.55);
-
-        // delay to save resources
-        pros::delay(25);
+  while (1) {
+    //pneumatics
+    if(controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
+      hook.toggle();
     }
+    
+
+    //intake
+    int intakeButton = controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
+    int outtakeButton = controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2);
+  
+    if (intakeButton) {
+      intake.move_velocity(200);
+    } else if (outtakeButton) {
+      intake.move_velocity(-200);
+    } else {
+      intake.move_velocity(0);
+    }
+
+    //arcade drive
+    int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+    int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+    chassis.arcade(leftY, rightX);
+
+    // delay to save resources
+    pros::delay(25);
+  }
 }
