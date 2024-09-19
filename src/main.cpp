@@ -1,4 +1,5 @@
 #include "main.h"
+<<<<<<< Updated upstream
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlib/asset.hpp"
 #include "../include/selector/Selector.hpp"
@@ -8,11 +9,24 @@ ASSET(example_txt);
 
 //motor set up
 // left motor group
+=======
+#include "UUUU_nova/subsystem.hpp"
+#include "pros/device.hpp"
+#include "pros/motors.h"
+#include "pros/rtos.hpp"
+#include "selector/Selector.hpp"
+#include "setup.hpp"
+#include <cstdio>
+#include "liblvgl/draw/lv_draw_img.h"
+#include "pros/apix.h"
+
+>>>>>>> Stashed changes
 lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
                                      10, // minimum output where drivetrain will move out of 127
                                      1.019 // expo curve gain
 );
 
+<<<<<<< Updated upstream
 // input curve for steer input during driver control
 lemlib::ExpoDriveCurve steer_curve(3, // joystick deadband out of 127
                                   10, // minimum output where drivetrain will move out of 127
@@ -107,42 +121,46 @@ void on_center_button() {
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+=======
+//true(紅隊、skill) & falses(藍隊)
+bool team;
+
+//關掉自動時執行的task
+bool off = true;
+
+
+>>>>>>> Stashed changes
 void initialize() {
-    // pros::lcd::initialize();
-    chassis.calibrate();
+    printf("initialize\n");
+	// pros::lcd::initialize();
+	chassis.calibrate();
 
-    const char* autons[] = {"Formula1","Formula2","Formula3","Super\nnova",""};
-    SW::selector::init(0,autons);
-
-    pros::Task task([&]() {
+	pros::Task task([&]() {
         while (true) {
-            printf("X: %.2f", chassis.getPose().x);
-            printf("  Y: %.2f", chassis.getPose().y);
-            printf("  Deg; %.2f\n", chassis.getPose().theta);
+            // printf("X: %.2f", chassis.getPose().x);
+            // printf("  Y: %.2f", chassis.getPose().y);
+			// printf("  Deg; %.2f\n", chassis.getPose().theta);
             pros::delay(50);
         }
     });
 
-    pros::delay(2000);
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 }
-/**
- * Runs while the robot is in the disabled state of Field Management System or
- * the VEX Competition Switch, following either autonomous or opcontrol. When
- * the robot is enabled, this task will exit.
- */
-void disabled() {}
 
-/**
- * Runs after initialize(), and before autonomous when connected to the Field
- * Management System or the VEX Competition Switch. This is intended for
- * competition-specific initialization routines, such as an autonomous selector
- * on the LCD.
- *
- * This task will exit when the robot is enabled and autonomous or opcontrol
- * starts.
- */
-void competition_initialize() {}
 
+void disabled() {
+    printf("disabled\n");
+}
+
+
+void competition_initialize() {
+    printf("competition_initialize\n");
+    const char* autons[] = {"Left","Solo","Right","test",""};
+	Teamselector::init(-3, autons);
+}
+
+
+<<<<<<< Updated upstream
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -219,5 +237,110 @@ void opcontrol() {
 
         // delay to save resources
         pros::delay(25);
+=======
+void autonomous() {
+    printf("autonomous\n");
+    off = true;
+    switch(Teamselector::get_auton()) {
+		case 0:
+            printf("Skill\n");
+            team = true;
+            Skill::skill();//Skill 
+			break;
+		case 1:
+			printf("Red1\n");
+            team = true;
+            Red::left();//Red Left
+			break;
+		case 2:
+			printf("Red2\n");
+            team = true;
+            Red::solo();//Red Solo
+			break;
+		case 3:
+			printf("Red3\n");
+            team = true;
+            Red::right();//Red Right
+			break;
+		case 4:
+			printf("Red4\n");
+            team = true;
+            Skill::auto1();//auto test
+			break;
+		case -1:
+			printf("Blue1\n");
+            team = false;
+            Blue::left();//Blue Left
+			break;
+		case -2:
+			printf("Blue2\n");
+            team = false;
+            Blue::solo();//Blue Solo
+			break;
+		case -3:
+			printf("Blue3\n");
+            team = false;
+            Blue::right();//Blue Left
+			break;
+		case -4:
+			printf("Blue4\n");
+            team = false;
+            Skill::auto1();//auto test
+			break;
+		default:
+			printf("Wrong");
+			break;
+	}
+}
+
+
+void opcontrol() {
+    printf("opcontrol\n");
+    off = false;
+    chassis.setBrakeMode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_COAST);
+    controller.clear();
+    // controller.print(0, 0, "autonomous testing");
+    // printf("start");
+	// controller.rumble("..");
+    // pros::delay(1000);
+	// autonomous();
+	// pros::delay(10000);
+
+
+	// loop forever 記得加delay
+    pros::Task teamSW([&](){
+        while(true) {
+            Teamselector::teamSW(false);
+            pros::delay(10);
+        }
+    });
+    pros::Task intake_remote([&](){
+        while(true) {
+            subsystem::intake.remote(controller);
+            pros::delay(10);
+        }
+    });
+    pros::Task pneumatics_remote([&](){
+        while(true) {
+            subsystem::pneumatics.remote(controller);
+            pros::delay(10);
+        }
+    });
+    pros::Task arm_pid_move([&](){
+        while(true) {
+            subsystem::arm.arm_move();
+            pros::delay(10);
+        }
+    });
+    pros::Task arm_remote([&](){
+        while(true) {
+            subsystem::arm.remote(controller);
+            pros::delay(10);
+        }
+    });
+    while(true) {
+        chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)*-1,false, 0.55);
+        pros::delay(10);
+>>>>>>> Stashed changes
     }
 }

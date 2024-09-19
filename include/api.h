@@ -80,7 +80,9 @@
 #include "pros/rtos.hpp"
 #include "pros/screen.hpp"
 #include "pros/vision.hpp"
-#endif
+
 #include "selector/Selector.hpp"
+
+#endif
 
 #endif  // _PROS_API_H_

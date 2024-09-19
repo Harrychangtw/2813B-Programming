@@ -1,8 +1,12 @@
-#include "../include/selector/Selector.hpp"
+#include "selector/Selector.hpp"
 #include "liblvgl/lvgl.h"
 #include "pros/rtos.hpp"
+#include "setup.hpp"
+#include "pros/screen.hpp"
 
-namespace SW::selector {
+extern bool team;
+
+namespace Teamselector {
 
 pros::Mutex auton_mtx;
 
@@ -112,13 +116,13 @@ void init(int default_auton, const char** autons) {
         LV_EVENT_VALUE_CHANGED, NULL);
     lv_obj_set_style_pad_all(skillsBtnm, 6, LV_PART_MAIN);
     lv_obj_set_style_pad_gap(skillsBtnm, 6, LV_PART_MAIN);
-    lv_obj_set_style_bg_color(skillsBtnm, lv_color_hex(0xFFEB38),
+    lv_obj_set_style_bg_color(skillsBtnm, lv_color_hex(0x64C466),//0xFFEB38
                               LV_PART_ITEMS | LV_STATE_CHECKED);
     lv_obj_set_style_border_width(skillsBtnm, 3,
                                   LV_PART_ITEMS | LV_STATE_CHECKED);
     lv_obj_set_style_border_color(skillsBtnm, lv_color_white(),
                                   LV_PART_ITEMS | LV_STATE_CHECKED);
-    lv_obj_set_style_bg_color(skillsBtnm, lv_color_hex(0xF57F17),
+    lv_obj_set_style_bg_color(skillsBtnm, lv_color_hex(0x587934),//0xF57F17
                               LV_PART_ITEMS);
 
     render();
@@ -135,4 +139,26 @@ int get_auton() {
     return ret;
 }
 
-} // namespace voss::selector
+void teamSW(bool screen_display) {
+    if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT) && controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+        team = !team;
+        while((controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) && (controller.get_digital(pros::E_CONTROLLER_DIGITAL_A))) {
+            pros::delay(10);
+        }
+    }
+    
+    if(team) {
+        controller.print(0, 0, "Team:Red");//搖桿顯示
+        pros::screen::set_pen(pros::c::COLOR_RED);//螢幕顯示紅
+    }
+    else {
+        controller.print(0, 0, "Team:Blue");//搖桿顯示
+        pros::screen::set_pen(pros::c::COLOR_BLUE);//螢幕顯示藍
+    }
+
+    if(screen_display) {
+        pros::screen::fill_rect(0,0,480,272);//螢幕顯示
+    }
+}
+
+} // namespace Teamselector

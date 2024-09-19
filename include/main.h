@@ -71,10 +71,16 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-/**
- * You can add C++-only headers here
- */
-//#include <iostream>
+#include "lemlib/api.hpp"
+#include "pros/misc.h"
+#include "pros/misc.hpp"
+#include "pros/motors.h"
+#include "pros/rtos.hpp"
+#include "selector/Selector.hpp"
+#include <iostream>
+#include "UUUU_nova/subsystem.hpp"
+#include "setup.hpp"
+#include "auto/auto.hpp"
 #endif
 
 #endif  // _PROS_MAIN_H_
