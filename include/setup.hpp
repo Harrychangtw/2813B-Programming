@@ -8,8 +8,8 @@
 
 static pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-static pros::MotorGroup left_motors({-1,-2,-3}, pros::MotorGearset::blue); 
-static pros::MotorGroup right_motors({18,19,10}, pros::MotorGearset::blue); 
+static pros::MotorGroup left_motors({1,2,3}, pros::MotorGearset::blue); 
+static pros::MotorGroup right_motors({-18,-19,-10}, pros::MotorGearset::blue); 
 static lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               &right_motors, // right motor group
                               11.417, // 10 inch track width
@@ -20,15 +20,15 @@ static lemlib::Drivetrain drivetrain(&left_motors, // left motor group
 
 static pros::Imu imu(1);
 
-static pros::Rotation horizontal_encoder(-10);//左右
-static pros::Rotation vertical_encoder(7);//前後
+static pros::Rotation horizontal_encoder(13);//左右
+static pros::Rotation vertical_encoder(13);//前後
 // horizontal tracking wheel
 static lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2, -2);
 // vertical tracking wheel
 static lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2, 0.375);
-static lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
+static lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
-                            &horizontal_tracking_wheel, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
                             &imu // inertial sensor
 );

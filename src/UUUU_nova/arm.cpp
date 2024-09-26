@@ -11,7 +11,7 @@ Arm::Arm(std::uint8_t arm_port, std::uint8_t rotation_port) {
     rotation = std::make_unique<pros::Rotation>(rotation_port);
 
     arm_motor->set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
-    arm_motor->set_gearing(pros::E_MOTOR_GEAR_GREEN);
+    arm_motor->set_gearing(pros::E_MOTOR_GEAR_RED);
     arm_motor->set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
     arm_pid.set_constants(0.05, 0.000001, 0);
@@ -21,7 +21,7 @@ Arm::Arm(std::uint8_t arm_port, std::uint8_t rotation_port) {
 //手臂遙控抬升
 void Arm::up() {
     error_up = Arm::position::UP - rotation->get_angle();
-    arm_motor->move_velocity((arm_pid.update(error_up)));
+    arm_motor->move_velocity(-100);
     // arm_motor->move_voltage(12000);
 }
 
@@ -33,7 +33,7 @@ void Arm::down() {
     else {
         error_down = Arm::position::DOWN - rotation->get_angle();
     }
-    arm_motor->move_velocity((arm_pid.update(error_down)));
+    arm_motor->move_velocity(100);
     // arm_motor->move_voltage(-12000);
 }
 
@@ -78,7 +78,7 @@ void Arm::pid_arm(Arm::position position, int ess, int stabletime, int outtime) 
         // printf("time:%d\n",o);
         o++;
 
-        if(abs(static_cast<double>(position) - rotation->get_angle()) < ess) {
+        if(fabs(static_cast<double>(position) - rotation->get_angle()) < ess) {
             s++;
             if(s > stabletime) {
                 break;
@@ -123,12 +123,12 @@ void Arm::remote(pros::Controller Controller) {
             new_control = false;
             this->down();
         }
-        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
-            move_break = true;
-            pros::delay(10);
-            new_control = true;
-            state = Arm::position::UP;
-        }
+        // else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
+        //     move_break = true;
+        //     pros::delay(10);
+        //     new_control = true;
+        //     state = Arm::position::UP;
+        // }
         // else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
         //     move_break = true;
         //     pros::delay(10);

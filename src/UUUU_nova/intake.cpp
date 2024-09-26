@@ -31,7 +31,7 @@ Intake::Intake( std::uint8_t intake_port, std::uint8_t pto_port, std::int8_t dis
 //Intake正轉，預設600rpm 包含卡住反轉
 void Intake::intake(int rpm, bool stuck) { 
 // printf("vel:%f - ti:%d\n",intake_motor->get_actual_velocity(),ti);
-    if(abs(intake_motor->get_actual_velocity()) < 20 && stuck) {
+    if(fabs(intake_motor->get_actual_velocity()) < 20 && stuck) {
         if(ti > 50) {
             ti = 0;
             this->stop();
@@ -160,7 +160,7 @@ void Intake::auto_run() {
     else if(on_off == Intake::mode::INTAKEtoARM_deg) {
         spindone = true;
         intake_motor->tare_position();
-        while(abs(intake_motor->get_position()) <= auto_deg) {
+        while(fabs(intake_motor->get_position()) <= auto_deg) {
             this->intake_to_arm(auto_val);
             pros::delay(1);
         }
@@ -187,7 +187,7 @@ void Intake::spin_for(int val, int deg, bool stop, bool SW) {
     int i = 0;
     int timeout = deg * 50;
     intake_motor->tare_position();
-    while(abs(intake_motor->get_position()) <= deg && i < timeout) {
+    while(fabs(intake_motor->get_position()) <= deg && i < timeout) {
         i++;
         intake_motor->move_velocity(val);
         pros::delay(1);
@@ -246,7 +246,7 @@ void Intake::intake_to_arm_count(int rpm, int count) {
 }
 
 //intake遙控
-Pneumatics pneumaticsI('B', 'D', 'A', 'H');
+Pneumatics pneumaticsI('D', 'C', 'A', 'H');
 Arm armI(9, 8);
 void Intake::remote(pros::Controller Controller) {
     pros::c::optical_raw_s_t raw1 = color->get_raw();
