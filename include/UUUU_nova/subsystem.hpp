@@ -11,5 +11,5 @@ namespace subsystem{
     static Pneumatics pneumatics('D', 'F', 'A', 'H');
 
     //手臂的函式庫
-    static Arm arm(-7, 8);
+    static Arm arm(7, 8);
 }

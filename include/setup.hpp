@@ -18,7 +18,7 @@ static lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               2 // horizontal drift is 2 (for now)
 );
 
-static pros::Imu imu(1);
+static pros::Imu imu(11);
 
 static pros::Rotation horizontal_encoder(13);//左右
 static pros::Rotation vertical_encoder(13);//前後

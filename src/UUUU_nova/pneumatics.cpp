@@ -52,9 +52,7 @@ void Pneumatics::hand_auto(bool sta) {
 
 //氣動遙控程式
 void Pneumatics::remote(pros::Controller Controller) {
-    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
-        this->intake_up.toggle();
-    }
+    
 
     // if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT) && (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_A) == false)) {
     //     intake_pne = !intake_pne;
@@ -72,7 +70,7 @@ void Pneumatics::remote(pros::Controller Controller) {
     //     }
     // }
     
-    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-        this->hand.toggle();
+    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
+        this->hook.toggle();
     }
 };
