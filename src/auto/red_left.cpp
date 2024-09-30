@@ -44,8 +44,10 @@ void Red::left() {
     // pros::delay(200000);
 
     int goalx,goaly,startx,starty;
-    goalx=-53;
+    goalx=-24;
     goaly=24;
+    startx=-60;
+    starty=50;
     //-----------------------------------------
     chassis.setPose(startx, starty, 270);//-53, 24, 270
     chassis.turnToPoint(startx-goalx+startx, starty-goaly+starty, 1000);//need change
@@ -54,10 +56,10 @@ void Red::left() {
     //get first stack--------------------------
 
 
-
+    /*
     //-----------------------------------------
-    goalx=-53;
-    goaly=24;//first ring
+    goalx=-3;
+    goaly=44;//first ring
 
     pros::delay(100);
     chassis.turnToPoint(goalx,goaly, 1000);
@@ -68,8 +70,8 @@ void Red::left() {
 
 
     //-----------------------------------------
-    goalx=-53;
-    goaly=24;//second ring
+    goalx=-3;
+    goaly=50;//second ring
 
     pros::delay(100);
     chassis.moveToPoint(goalx, goaly, 1000,{true});
@@ -82,8 +84,8 @@ void Red::left() {
 
     
     //-----------------------------------------
-    goalx=-53;
-    goaly=24;//third ring
+    goalx=-24;
+    goaly=48;//third ring
 
     pros::delay(100);
 
@@ -97,7 +99,7 @@ void Red::left() {
     //-----------------------------------------
 
     chassis.turnToHeading(0,1000);
-    chassis.moveToPoint(-53, 24, 1000,{true},true);
+    chassis.moveToPoint(-24, 3, 1000,{false},true);
     subsystem::intake.auto_spin(Intake::mode::STOP, true, 600);
     //AWP-------------------------------------
 
@@ -122,5 +124,5 @@ void Red::left() {
     // chassis.follow(t1_txt, 15, 100000);
     // chassis.waitUntilDone();
     // chassis.moveToPose(60, 0, 90,10000,{.maxSpeed = 87});
-
+*/
 }
