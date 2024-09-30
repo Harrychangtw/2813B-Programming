@@ -17,23 +17,24 @@ void Red::right() {
         }
     });
 
-    chassis.setPose(0, 0, 0);
-    subsystem::arm.pid_arm(Arm::position::UP);
+    // chassis.setPose(0, 0, 0);
+    // subsystem::arm.pid_arm(Arm::position::UP);
 
-    subsystem::pneumatics.hand_auto(true);
-    pros::delay(100);
-    chassis.moveToPoint(0,5, 500 );
-    subsystem::intake.auto_spin(Intake::mode::OUTTAKE, false);
-    chassis.waitUntilDone();
-    chassis.turnToHeading(40, 1000, {.maxSpeed = 100});
-    chassis.waitUntilDone();
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true);
-    chassis.swingToHeading(105, DriveSide::RIGHT, 1000, {.maxSpeed = 100});
-    chassis.waitUntilDone();
-    chassis.turnToHeading(90, 1000, {.maxSpeed = 127});
-    chassis.waitUntilDone();
-    chassis.moveToPoint(48, 16, 3000, {.maxSpeed = 60});
-    chassis.waitUntilDone();
+    // subsystem::pneumatics.hand_auto(true);
+    // pros::delay(100);
+    // chassis.moveToPoint(0,5, 500 );
+    // subsystem::intake.auto_spin(Intake::mode::OUTTAKE, false);
+    // chassis.waitUntilDone();
+    // chassis.turnToHeading(40, 1000, {.maxSpeed = 100});
+    // chassis.waitUntilDone();
+    // subsystem::intake.auto_spin(Intake::mode::INTAKE, true);
+    // chassis.swingToHeading(105, DriveSide::RIGHT, 1000, {.maxSpeed = 100});
+    // chassis.waitUntilDone();
+    // chassis.turnToHeading(90, 1000, {.maxSpeed = 127});
+    // chassis.waitUntilDone();
+    // chassis.moveToPoint(48, 16, 3000, {.maxSpeed = 60});
+    // chassis.waitUntilDone();
+    chassis.setPose()
 
     
 
