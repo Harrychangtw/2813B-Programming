@@ -25,15 +25,19 @@ void initialize() {
     printf("initialize\n");
 	// pros::lcd::initialize();
 	chassis.calibrate();
+    chassis.setPose(0, 0, 0);
 
-	pros::Task task([&]() {
+    pros::Task task([&]() {
         while (true) {
-            // printf("X: %.2f", chassis.getPose().x);
-            // printf("  Y: %.2f", chassis.getPose().y);
-			// printf("  Deg; %.2f\n", chassis.getPose().theta);
+            fflush(stdout);
+            printf("X: %.2f", chassis.getPose().x);
+            printf("  Y: %.2f", chassis.getPose().y);
+            printf("  Deg: %.2f\n", chassis.getPose().theta);
+
             pros::delay(50);
         }
     });
+
 
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 }
@@ -153,7 +157,8 @@ void opcontrol() {
         }
     });
     while(true) {
-        chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)*-1,false, 0.55);
+
+        chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X),false, 0.55);
         pros::delay(10);
     }
 }

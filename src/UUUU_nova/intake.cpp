@@ -8,7 +8,6 @@
 #include "setup.hpp"
 
 extern bool team;
-
 //std::initializer_list<int8_t> ports,
 Intake::Intake( std::uint8_t intake_port, std::uint8_t pto_port, std::int8_t distance_port, std::uint8_t color_air_port, std::uint8_t color_port) {
     // intake_motors = std::make_unique<pros::MotorGroup>(ports);
@@ -246,8 +245,8 @@ void Intake::intake_to_arm_count(int rpm, int count) {
 }
 
 //intake遙控
-Pneumatics pneumaticsI('B', 'D', 'A', 'H');
-Arm armI(9, 8);
+Pneumatics pneumaticsI('D', 'F', 'A', 'H');
+Arm armI(7, 8);
 void Intake::remote(pros::Controller Controller) {
     pros::c::optical_raw_s_t raw1 = color->get_raw();
     printf("Red:%d - Blue:%d \n", raw1.red, raw1.blue);

@@ -17,8 +17,8 @@ void Red::right() {
         }
     });
 
-    // chassis.setPose(0, 0, 0);
-    // subsystem::arm.pid_arm(Arm::position::UP);
+    chassis.setPose(0, 0, 0);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
 
     // subsystem::pneumatics.hand_auto(true);
     // pros::delay(100);

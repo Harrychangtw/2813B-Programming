@@ -78,7 +78,7 @@ void Arm::pid_arm(Arm::position position, int ess, int stabletime, int outtime) 
         // printf("time:%d\n",o);
         o++;
 
-        if(abs(static_cast<double>(position) - rotation->get_angle()) < ess) {
+        if(fabs(static_cast<double>(position) - rotation->get_angle()) < ess) {
             s++;
             if(s > stabletime) {
                 break;
@@ -123,12 +123,12 @@ void Arm::remote(pros::Controller Controller) {
             new_control = false;
             this->down();
         }
-        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
-            move_break = true;
-            pros::delay(10);
-            new_control = true;
-            state = Arm::position::UP;
-        }
+        // else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
+        //     move_break = true;
+        //     pros::delay(10);
+        //     new_control = true;
+        //     state = Arm::position::UP;
+        // }
         // else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
         //     move_break = true;
         //     pros::delay(10);

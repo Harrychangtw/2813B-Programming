@@ -18,7 +18,7 @@ Pneumatics::Pneumatics(std::uint8_t ele_port, std::uint8_t intakeup_port, std::u
     this->hook = pros::adi::Pneumatics{hook_port,false};
     this->hand = pros::adi::Pneumatics{hand_port,false};
 }
-Arm armP(9, 8);
+Arm armP(7, 8);
 
 //intake氣動抬升，true(抬升), false(放下)
 void Pneumatics::intake_auto(bool sta) {
@@ -52,28 +52,25 @@ void Pneumatics::hand_auto(bool sta) {
 
 //氣動遙控程式
 void Pneumatics::remote(pros::Controller Controller) {
+    
+
+    // if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT) && (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_A) == false)) {
+    //     intake_pne = !intake_pne;
+    //     if(intake_pne) {
+    //         this->intake_up.extend();//intake抬升
+    //         if(armP.lower_intake()) {
+    //             Arm::move_break = true;
+    //             state = true;
+    //             armP.pid_arm(Arm::position::INTAKE);
+    //             state = false;
+    //         }
+    //     }
+    //     else {
+    //         this->intake_up.retract();//intake下降
+    //     }
+    // }
+    
     if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
         this->hook.toggle();
-    }
-    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT) && (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_A) == false)) {
-        intake_pne = !intake_pne;
-        if(intake_pne) {
-            this->intake_up.extend();//intake抬升
-            if(armP.lower_intake()) {
-                Arm::move_break = true;
-                state = true;
-                armP.pid_arm(Arm::position::INTAKE);
-                state = false;
-            }
-        }
-        else {
-            this->intake_up.retract();//intake下降
-        }
-    }
-    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
-        this->ele.toggle();
-    }
-    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-        this->hand.toggle();
     }
 };
