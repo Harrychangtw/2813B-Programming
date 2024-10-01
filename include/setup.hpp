@@ -8,8 +8,8 @@
 
 static pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-static pros::MotorGroup left_motors({-18,-19,-10}, pros::MotorGearset::blue); 
-static pros::MotorGroup right_motors({1,2,3}, pros::MotorGearset::blue); 
+static pros::MotorGroup left_motors({1,2,3}, pros::MotorGearset::blue); 
+static pros::MotorGroup right_motors({-18,-19,-10}, pros::MotorGearset::blue); 
 static lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               &right_motors, // right motor group
                               11.417, // 10 inch track width

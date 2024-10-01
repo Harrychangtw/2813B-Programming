@@ -29,11 +29,10 @@ void initialize() {
 
     pros::Task task([&]() {
         while (true) {
-            fflush(stdout);
             printf("X: %.2f", chassis.getPose().x);
             printf("  Y: %.2f", chassis.getPose().y);
             printf("  Deg: %.2f\n", chassis.getPose().theta);
-
+            fflush(stdout);
             pros::delay(50);
         }
     });
@@ -158,7 +157,7 @@ void opcontrol() {
     });
     while(true) {
 
-        chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X),false, 0.55);
+        chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X)*-1,false, 0.55);
         pros::delay(10);
     }
 }
