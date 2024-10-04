@@ -55,6 +55,8 @@ void competition_initialize() {
 
 
 void autonomous() {
+    
+    
     printf("autonomous\n");
     off = true;
     switch(Teamselector::get_auton()) {
@@ -106,7 +108,9 @@ void autonomous() {
 		default:
 			printf("Wrong");
 			break;
-	}
+
+    }
+    
 }
 
 

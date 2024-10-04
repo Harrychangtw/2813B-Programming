@@ -6,9 +6,7 @@
 
 //關掉自動時執行的task
 extern bool off;
-ASSET(RR1_txt);
-ASSET(t1_txt);
-ASSET(pid_txt)
+ASSET(blueright1v1_txt);
 void Red::right() {
     // intake自動時的動作程式
     // pros::Task intake_run([&]() {
@@ -18,8 +16,20 @@ void Red::right() {
     //     }
     // });
 
-    chassis.setPose(52.7,-65.3,0);
-    chassis.turnToHeading(90, 1000);
+    int goalx,goaly,startx,starty;
+    startx=-60;
+    starty=48;
+
+    //-----------------------------------------
+    chassis.setPose(startx, starty, 270);//-53, 24, 270
+    chassis.follow(blueright1v1_txt, 12, 10000,false,false);
+    subsystem::pneumatics.hook_auto(true);
+    pros::delay(500);
+    chassis.turnToPoint(53,24, 1000);
+    chassis.moveToPoint(53, 24, 1000,{true},true);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
+    chassis.waitUntilDone();
+
     // chassis.follow(pid_txt, 15, 5000);
     // chassis.moveToPoint(52.7, 0, 500);
     // chassis.follow(pid_txt, 15, 5000,true,true);

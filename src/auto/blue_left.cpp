@@ -16,7 +16,7 @@ void Blue::left() {
     });
 
 
-
+    subsystem::intake.auto_spin(Intake::mode::STOP);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, false, 600);
     pros::delay(1000);
     subsystem::intake.auto_spin(Intake::mode::STOP);

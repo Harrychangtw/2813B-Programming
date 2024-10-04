@@ -10,10 +10,9 @@
 extern bool off;
 ASSET(redleft1v3_txt);
 ASSET(redleft2v2_txt);
-ASSET(RL2_txt);
-ASSET(RL3_txt);
+ASSET(redleft4v1_txt);
+
 void Red::left() {
-    // intake自動時的動作程式
     pros::Task intake_run([&]() {
         while(off) {
             subsystem::intake.auto_run();
@@ -24,105 +23,49 @@ void Red::left() {
 
 
 
-
-    // chassis.setPose(-53, 12, 233);
-    // chassis.moveToPoint(-63, 5, 1000,{true,50});
-    // subsystem::arm.pid_arm(Arm::position::MID, 50, 5, 350);
-    // pros::delay(500);
-    // subsystem::arm.pid_arm(Arm::position::MID_IN, 50, 5, 350);
-    // chassis.turnToHeading(250, 1000);
-    // chassis.moveToPoint(-29, 18, 1000,{false,75});
-
-
-
-
-
-
-
-
-
     // pros::delay(200000);
 
     int goalx,goaly,startx,starty;
-    startx=-60;
-    starty=48;
+    startx=-58;
+    starty=47;
 
     //-----------------------------------------
     chassis.setPose(startx, starty, 270);//-53, 24, 270
-    chassis.follow(redleft1v3_txt, 12, 10000,false,false);
+    chassis.follow(redleft1v3_txt, 12, 4000,false,false);
     subsystem::pneumatics.hook_auto(true);
+    
 
-
-    chassis.follow(redleft2v2_txt, 12, 10000,true,false);
- 
-    //get first stack--------------------------
-    /*
-    //-----------------------------------------
-    goalx=-53;
-    goaly=24;//first ring
-
-    pros::delay(100);
-    chassis.turnToPoint(goalx,goaly, 1000);
-    chassis.moveToPoint(goalx, goaly, 1000,{true});
+        
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
-    pros::delay(1000);
-    //get first ring--------------------------
+    //-----------------------------------------first ring
+    pros::delay(500);
+    chassis.turnToPoint(-23, 47, 3000);
+    
+    chassis.moveToPoint(-23,48,2000,{true},false);
+    
+    // chassis.moveToPoint(4, 43, 2000,{true},true);
 
 
+    chassis.waitUntilDone();
+    pros::delay(500);
     //-----------------------------------------
-    goalx=-53;
-    goaly=24;//second ring
+    chassis.moveToPose(-4,40,90,2000,{true},false);
+    pros::delay(3000);
+    subsystem::intake.stop();
 
-    pros::delay(100);
-    chassis.moveToPoint(goalx, goaly, 1000,{true});
-    chassis.turnToPoint(goalx,goaly, 1000);
-    chassis.moveToPoint(goalx, goaly, 1000,{true});
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
-    pros::delay(1000);
-    //get second ring--------------------------
-
-
+    chassis.follow(redleft4v1_txt, 12, 4000,false,false);
     
     //-----------------------------------------
-    goalx=-53;
-    goaly=24;//third ring
 
-    pros::delay(100);
-
-    chassis.turnToPoint(goalx,goaly, 1000);
-    chassis.moveToPoint(goalx, goaly, 1000,{true});
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
-    pros::delay(200);
-    //get third ring--------------------------
-
-
+    /*
+    //-----------------------------------------third ring
+    chassis.turnToPoint(23, 48, 3000);
+    chassis.moveToPoint(23,48,2000,{true},false);
     //-----------------------------------------
 
-    chassis.turnToHeading(0,1000);
-    chassis.moveToPoint(-53, 24, 1000,{true},true);
-    subsystem::intake.auto_spin(Intake::mode::STOP, true, 600);
-    //AWP-------------------------------------
-
-
-    // chassis.follow(RL3_txt, 15, 5000);
-    //chassis.waitUntilDone();
-    pros::delay(500);
-    // chassis.swingToHeading(0, DriveSide::LEFT, 1000);
-    // chassis.waitUntilDone();
-    // chassis.moveToPoint(-6, 55, 3000);
-    // chassis.waitUntilDone();
-    // subsystem::intake.stop();
-
-
-
-    controller.rumble(".");
-
-
-
-    // chassis.setPose(-48, -60, 0);
-    // chassis.setBrakeMode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_HOLD);
-    // chassis.follow(t1_txt, 15, 100000);
-    // chassis.waitUntilDone();
-    // chassis.moveToPose(60, 0, 90,10000,{.maxSpeed = 87});
-*/
+    //-----------------------------------------AWP
+    pros::delay(1000);
+    chassis.moveToPoint(23,1,3000,{true},false);
+    //-----------------------------------------
+    */
 }
