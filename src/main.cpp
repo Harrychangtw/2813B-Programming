@@ -53,8 +53,12 @@ void competition_initialize() {
 	Teamselector::init(-3, autons);
 }
 
-
 void autonomous() {
+
+
+    team = true;
+    Red::right();
+    /*
     printf("autonomous\n");
     off = true;
     switch(Teamselector::get_auton()) {
@@ -107,6 +111,7 @@ void autonomous() {
 			printf("Wrong");
 			break;
 	}
+    */
 }
 
 
