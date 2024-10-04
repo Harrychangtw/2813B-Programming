@@ -34,7 +34,6 @@ void Red::right() {
     // chassis.waitUntilDone();
     // chassis.moveToPoint(48, 16, 3000, {.maxSpeed = 60});
     // chassis.waitUntilDone();
-    chassis.setPose()
 
     
 

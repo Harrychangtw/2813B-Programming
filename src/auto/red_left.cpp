@@ -8,8 +8,8 @@
 
 //關掉自動時執行的task
 extern bool off;
-ASSET(RL11_txt);
-ASSET(RL1_txt);
+ASSET(redleft1v3_txt);
+ASSET(redleft2v2_txt);
 ASSET(RL2_txt);
 ASSET(RL3_txt);
 void Red::left() {
@@ -44,17 +44,19 @@ void Red::left() {
     // pros::delay(200000);
 
     int goalx,goaly,startx,starty;
-    goalx=-53;
-    goaly=24;
+    startx=-60;
+    starty=48;
+
     //-----------------------------------------
     chassis.setPose(startx, starty, 270);//-53, 24, 270
-    chassis.turnToPoint(startx-goalx+startx, starty-goaly+starty, 1000);//need change
-    chassis.moveToPoint(-goalx, goaly, 1000);//need change
+    chassis.follow(redleft1v3_txt, 12, 10000,false,false);
     subsystem::pneumatics.hook_auto(true);
+
+
+    chassis.follow(redleft2v2_txt, 12, 10000,true,false);
+ 
     //get first stack--------------------------
-
-
-
+    /*
     //-----------------------------------------
     goalx=-53;
     goaly=24;//first ring
@@ -122,5 +124,5 @@ void Red::left() {
     // chassis.follow(t1_txt, 15, 100000);
     // chassis.waitUntilDone();
     // chassis.moveToPose(60, 0, 90,10000,{.maxSpeed = 87});
-
+*/
 }
