@@ -29,11 +29,10 @@ void initialize() {
 
     pros::Task task([&]() {
         while (true) {
-            fflush(stdout);
             printf("X: %.2f", chassis.getPose().x);
             printf("  Y: %.2f", chassis.getPose().y);
             printf("  Deg: %.2f\n", chassis.getPose().theta);
-
+            fflush(stdout);
             pros::delay(50);
         }
     });
