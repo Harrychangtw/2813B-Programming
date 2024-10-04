@@ -18,7 +18,7 @@ static lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               2 // horizontal drift is 2 (for now)
 );
 
-static pros::Imu imu(11);
+static pros::Imu imu(12);
 
 static pros::Rotation horizontal_encoder(13);//左右
 static pros::Rotation vertical_encoder(13);//前後
@@ -46,9 +46,9 @@ static lemlib::ControllerSettings lateral_controller(19, // proportional gain (k
 );
 
 // angular PID controller
-static lemlib::ControllerSettings angular_controller(8.7, // proportional gain (kP)
-                                              0.0003, // integral gain (kI)
-                                              85, // derivative gain (kD)
+static lemlib::ControllerSettings angular_controller(10, // proportional gain (kP)
+                                              0., // integral gain (kI)
+                                              0, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in degrees
                                               100, // small error range timeout, in milliseconds
