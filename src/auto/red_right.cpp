@@ -8,6 +8,7 @@
 extern bool off;
 ASSET(rr1_txt);
 ASSET(rr2_txt);
+ASSET(blueright1v1_txt);
 void Red::right() {
     // intake自動時的動作程式
     pros::Task intake_run([&]() {
