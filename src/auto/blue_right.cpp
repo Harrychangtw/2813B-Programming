@@ -37,23 +37,29 @@ void Blue::right() {
 
 
 
-    //-----------------------------------------first ring
+    // -----------------------------------------first ring
     pros::delay(500);
     chassis.turnToPoint(23, 47, 3000);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
-    chassis.moveToPoint(23,48,2000,{true},false);
+    chassis.moveToPoint(23,48,2000,{true},true);
+    // -----------------------------------------
+    // subsystem::pneumatics.hook_auto(false);
+    pros::delay(3000);
+    subsystem::pneumatics.hook_auto(false);
+    subsystem::intake.stop();
+
     
     // chassis.moveToPoint(4, 43, 2000,{true},true);
 
 
-    chassis.waitUntilDone();
-    pros::delay(500);
-    //-----------------------------------------
-    chassis.moveToPose(4,40,270,2000,{true},false);
-    pros::delay(3000);
-    subsystem::intake.stop();
+    // chassis.waitUntilDone();
+    // pros::delay(500);
+    // //-----------------------------------------
+    // chassis.moveToPose(4,40,270,2000,{true},false);
+    // pros::delay(3000);
+    // subsystem::intake.stop();
 
-    chassis.follow(blueright3v1_txt, 12, 4000,false,false);
+    // chassis.follow(blueright3v1_txt, 12, 4000,false,false);
     
     //-----------------------------------------
 
