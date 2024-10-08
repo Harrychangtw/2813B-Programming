@@ -73,4 +73,7 @@ void Pneumatics::remote(pros::Controller Controller) {
     if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
         this->hook.toggle();
     }
+    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+        this->hand.toggle();
+    }
 };
