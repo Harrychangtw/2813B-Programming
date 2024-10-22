@@ -33,39 +33,71 @@ void Red::left() {
     chassis.setPose(startx, starty, 270);//-53, 24, 270
     chassis.follow(redleft1v3_txt, 12, 4000,false,false);
     subsystem::pneumatics.hook_auto(true);
-    
-
-        
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
+    //take first yellow
+    chassis.turnToHeading(40,1000);
+    pros::delay(1000);
+    chassis.setPose(0,0,90);
+    chassis.moveToPoint(20, 0, 1000, {true}, false);
+    //take first red
+    chassis.setPose(0,0,50);
+    pros::delay(1000);
+    chassis.turnToHeading(20,700);
+    pros::delay(1000);
+    chassis.setPose(0,0,90);
+    chassis.moveToPoint(7, 0, 700, {true}, false);
+    //take second red
+    pros::delay(1500);
+    chassis.moveToPoint(-10, 0, 1000, {false}, false);
+    //back off
+    pros::delay(500);
+    chassis.setPose(0,0,0);
+    chassis.turnToHeading(-45,500);
+    pros::delay(500);
+    chassis.setPose(0,0,90);
+    chassis.moveToPoint(15, 0, 1000, {true}, false);
+    //take third red
+    pros::delay(500);
+    chassis.moveToPoint(-10, 0, 2000, {false}, false);
+    subsystem::pneumatics.hook_auto(false);
+    // subsystem::intake.stop();
+
+
+
+
+
+    //-----------------------------------------old
     //-----------------------------------------first ring
     // pros::delay(500);
-    chassis.turnToPoint(-23, 47, 3000);
+    // chassis.turnToPoint(-23, 47, 3000);
     
-    chassis.moveToPoint(-23,48,2000,{true},true);
-    chassis.turnToHeading(90,500); 
-    pros::delay(2000);
-    chassis.moveToPose(-1,40,100,1000,{true},true);
-    pros::delay(1500);
-    chassis.setPose(0,0,90);
-    chassis.moveToPoint(-20, 0, 1000, {false}, true);
-    //3 rings and exit
-    //退出來
-    chassis.turnToHeading(60,500);
-    pros::delay(500);
-    chassis.setPose(0,0,90);
-    chassis.moveToPoint(20, 0, 1000, {true}, true);
-    pros::delay(500);
-    chassis.moveToPoint(0, 0, 1000, {false}, false);
-    pros::delay(500);
-    chassis.setPose(0,0,90);
-    pros::delay(500);
+    // chassis.moveToPoint(-23,48,2000,{true},true);
+    // pros::delay(1500);
+    // chassis.turnToHeading(90,500); 
+    // pros::delay(2000);
+    // chassis.moveToPose(-1,40,100,1000,{true},true);
+    // pros::delay(1500);
+    // chassis.setPose(0,0,90);
+    // chassis.moveToPoint(-20, 0, 1000, {false}, true);
+    // //退出來
+    // chassis.turnToHeading(65,500);
+    // pros::delay(500);
+    // chassis.setPose(0,0,90);
+    // chassis.moveToPoint(20, 0, 1000, {true}, true);
+    // pros::delay(500);
+    // chassis.moveToPoint(0, 0, 1000, {false}, false);
+    // pros::delay(500);
+    // chassis.setPose(0,0,90);
+    // pros::delay(500);
+    // //3 rings and exit
+    // //-----------------------------------------third ring and exit
     // chassis.turnToHeading(180,500);
     // pros::delay(500);
     // chassis.setPose(0,0,180);
-    // chassis.moveToPoint(0, -120, 1000, {true}, false);
+    // chassis.moveToPoint(0, -140, 1000, {true}, false);
     // pros::delay(1000);
-    subsystem::pneumatics.hook_auto(false);
-    subsystem::intake.stop();
+    // subsystem::pneumatics.hook_auto(false);
+    // subsystem::intake.stop();
 
 
 
