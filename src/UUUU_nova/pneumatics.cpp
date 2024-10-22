@@ -10,14 +10,16 @@ bool Pneumatics::state = false;
 
 extern bool team;
 
-//std::uint8_t pto_port,
 Pneumatics::Pneumatics(std::uint8_t ele_port, std::uint8_t intakeup_port, std::uint8_t hook_port, std::uint8_t hand_port) {
-    // this->pto = pros::adi::Pneumatics{pto_port,false};
     this->ele = pros::adi::Pneumatics{ele_port,false};
     this->intake_up = pros::adi::Pneumatics{intakeup_port,false};
     this->hook = pros::adi::Pneumatics{hook_port,false};
     this->hand = pros::adi::Pneumatics{hand_port,false};
+    this->elevator_unlocked = false;
+    this->elevator_unlock_time = 0;
 }
+
+
 Arm armP(7, 8);
 
 //intake氣動抬升，true(抬升), false(放下)
@@ -49,28 +51,27 @@ void Pneumatics::hand_auto(bool sta) {
         this->hand.retract();
     }
 }
+bool Pneumatics::is_elevator_unlocked() {
+    if (!elevator_unlocked && pros::millis() >= elevator_unlock_time) {
+        elevator_unlocked = true;
+    }
+    return elevator_unlocked;
+}
+
+void Pneumatics::start_elevator_unlock_timer() {
+    elevator_unlock_time = pros::millis() + 0; // 90 seconds from now
+    elevator_unlocked = false;
+}
+
 
 //氣動遙控程式
 void Pneumatics::remote(pros::Controller Controller) {
-    
-
-    // if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT) && (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_A) == false)) {
-    //     intake_pne = !intake_pne;
-    //     if(intake_pne) {
-    //         this->intake_up.extend();//intake抬升
-    //         if(armP.lower_intake()) {
-    //             Arm::move_break = true;
-    //             state = true;
-    //             armP.pid_arm(Arm::position::INTAKE);
-    //             state = false;
-    //         }
-    //     }
-    //     else {
-    //         this->intake_up.retract();//intake下降
-    //     }
-    // }
-    
-    if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
+    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
         this->hook.toggle();
     }
-};
+    
+    // Only allow elevator toggle if it's unlocked
+    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X) && is_elevator_unlocked()) {
+        this->ele.toggle();
+    }
+}

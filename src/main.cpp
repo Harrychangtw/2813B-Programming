@@ -1,6 +1,8 @@
 #include "main.h"
 #include "UUUU_nova/subsystem.hpp"
+#include "pros/adi.hpp"
 #include "pros/device.hpp"
+#include "pros/misc.h"
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 #include "selector/Selector.hpp"
@@ -52,6 +54,7 @@ void competition_initialize() {
     const char* autons[] = {"Left","Solo","Right","test",""};
 	Teamselector::init(-3, autons);
 }
+
 
 void autonomous() {
    
@@ -115,19 +118,14 @@ void autonomous() {
 
 void opcontrol() {
     printf("opcontrol\n");
+   
     off = false;
     chassis.setBrakeMode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_COAST);
     controller.clear();
-    // controller.print(0, 0, "autonomous testing");
-    // printf("start");
-	// controller.rumble("..");
-    // pros::delay(1000);
-	// autonomous();
-	// pros::delay(10000);
 
+    // Start the elevator unlock timer
+    subsystem::pneumatics.start_elevator_unlock_timer();
 
-	// loop forever 記得加delay
-    
     pros::Task teamSW([&](){
         while(true) {
             Teamselector::teamSW(false);
@@ -159,8 +157,8 @@ void opcontrol() {
         }
     });
     while(true) {
-
         chassis.arcade(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X),false, 0.55);
+        
         pros::delay(10);
     }
 }
