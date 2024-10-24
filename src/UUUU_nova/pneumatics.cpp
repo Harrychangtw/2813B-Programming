@@ -20,7 +20,6 @@ Pneumatics::Pneumatics(std::uint8_t ele_port, std::uint8_t intakeup_port, std::u
 }
 
 
-Arm armP(7, 8);
 
 //intake氣動抬升，true(抬升), false(放下)
 void Pneumatics::intake_auto(bool sta) {

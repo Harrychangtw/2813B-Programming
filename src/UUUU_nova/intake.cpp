@@ -64,7 +64,7 @@ void Intake::SWColor() {
         if(this->dis_check(10) || t + 15 < pros::millis()) {//
             // printf("time:%u - t:%u\n", pros::millis(), t);
 
-            if(raw.blue > 300&&raw.red<800) {//看到藍色的數值
+            if(raw.blue > 200&&raw.red<800) {//看到藍色的數值
                 this->color_air.extend();
             }
             
@@ -84,7 +84,7 @@ void Intake::SWColor() {
         if(this->dis_check(50) || t + 15 < pros::millis()) {//
             // printf("time:%u - t:%u\n", pros::millis(), t);
             
-            if(raw.red > 500&&raw.blue<500) {//看到紅色的數值
+            if(raw.red > 500&&raw.blue<400) {//看到紅色的數值
                 this->color_air.extend();
             }
             
@@ -212,9 +212,8 @@ bool Intake::dis_check(int dis) {
 
 //吸ring進入到手臂前端動作
 void Intake::intake_move_reverse() {
-    this->spin_for(600, 850, true);
-    // this->spin_for(200, 70);
-    pros::delay(50);
+     this->spin_for(200, 70);
+    
     this->spin_for(-600, 1300);
 }
 
@@ -222,11 +221,11 @@ void Intake::intake_move_reverse() {
 void Intake::intake_to_arm(int rpm) {//void* param
     // Intake* intake = static_cast<Intake*>(param);
 
-    if(this->distance->get_distance() < 40) {
+    if(this->distance->get_distance() < 60) {
         this->intake_move_reverse();
     }
     else {
-        this->intake();
+        this->intake(600);
     }
 }
 
@@ -239,7 +238,7 @@ void Intake::intake_to_arm_count(int rpm, int count) {
             i++;
         }
         else {
-            this->intake();
+            this->intake(200);
         }
     }
 }
