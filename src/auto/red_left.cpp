@@ -34,11 +34,12 @@ void Red::left() {
     chassis.follow(redleft1v3_txt, 12, 4000,false,false);
     subsystem::pneumatics.hook_auto(true);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
+    pros::delay(500);
     //take first yellow
-    chassis.turnToHeading(40,1000);
+    chassis.turnToHeading(45,1000);
     pros::delay(1000);
     chassis.setPose(0,0,90);
-    chassis.moveToPoint(20, 0, 1000, {true}, false);
+    chassis.moveToPoint(23, 0, 1000, {true}, false);
     //take first red
     chassis.setPose(0,0,50);
     pros::delay(1000);
@@ -58,7 +59,7 @@ void Red::left() {
     chassis.moveToPoint(15, 0, 1000, {true}, false);
     //take third red
     pros::delay(500);
-    chassis.moveToPoint(-10, 0, 2000, {false}, false);
+    chassis.moveToPoint(-15, 0, 2000, {false}, false);
     subsystem::pneumatics.hook_auto(false);
     // subsystem::intake.stop();
 
