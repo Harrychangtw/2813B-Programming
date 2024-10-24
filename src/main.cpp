@@ -1,5 +1,6 @@
 #include "main.h"
 #include "UUUU_nova/subsystem.hpp"
+#include "auto/auto.hpp"
 #include "pros/adi.hpp"
 #include "pros/device.hpp"
 #include "pros/misc.h"
@@ -59,59 +60,63 @@ void competition_initialize() {
 void autonomous() {
    
     team = true;
-    Red::left();
-    // printf("autonomous\n");
-    // off = true;
-    // switch(Teamselector::get_auton()) {
-	// 	case 0:
-    //         printf("Skill\n");
-    //         team = true;
-    //         Skill::skill();//Skill 
-	// 		break;
-	// 	case 1:
-	// 		printf("Red1\n");
-    //         team = true;
-    //         Red::left();//Red Left
-	// 		break;
-	// 	case 2:
-	// 		printf("Red2\n");
-    //         team = true;
-    //         Red::solo();//Red Solo
-	// 		break;
-	// 	case 3:
-	// 		printf("Red3\n");
-    //         team = true;
-    //         Red::right();//Red Right
-	// 		break;
-	// 	case 4:
-	// 		printf("Red4\n");
-    //         team = true;
-    //         Skill::auto1();//auto test
-	// 		break;
-	// 	case -1:
-	// 		printf("Blue1\n");
-    //         team = false;
-    //         Blue::left();//Blue Left
-	// 		break;
-	// 	case -2:
-	// 		printf("Blue2\n");
-    //         team = false;
-    //         Blue::solo();//Blue Solo
-	// 		break;
-	// 	case -3:
-	// 		printf("Blue3\n");
-    //         team = false;
-    //         Blue::right();//Blue Left
-	// 		break;
-	// 	case -4:
-	// 		printf("Blue4\n");
-    //         team = false;
-    //         Skill::auto1();//auto test
-	// 		break;
-	// 	default:
-	// 		printf("Wrong");
-	// 		break;
-	// }
+    Red::right();
+    printf("autonomous\n");
+    off = true;
+    /*
+    switch(Teamselector::get_auton()) {
+		case 0:
+            printf("Skill\n");
+            team = true;
+            Skill::skill();//Skill 
+			break;
+		case 1:
+			printf("Red1\n");
+            team = true;
+            Red::left();//Red Left
+			break;
+		case 2:
+			printf("Red2\n");
+            team = true;
+            Red::solo();//Red Solo
+			break;
+		case 3:
+			printf("Red3\n");
+            team = true;
+            Red::right();//Red Right
+			break;
+		case 4:
+			printf("Red4\n");
+            team = true;
+            Skill::auto1();//auto test
+			break;
+		case -1:
+			printf("Blue1\n");
+            team = false;
+            Blue::left();//Blue Left
+			break;
+		case -2:
+			printf("Blue2\n");
+            team = false;
+            Blue::solo();//Blue Solo
+			break;
+		case -3:
+			printf("Blue3\n");
+            team = false;
+            Blue::right();//Blue Left
+			break;
+		case -4:
+			printf("Blue4\n");
+            team = false;
+            Skill::auto1();//auto test
+			break;
+		default:
+			printf("Wrong");
+
+			break;
+        
+    }
+    */
     
 }
 
