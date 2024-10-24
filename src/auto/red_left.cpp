@@ -63,46 +63,4 @@ void Red::left() {
     subsystem::pneumatics.hook_auto(false);
     // subsystem::intake.stop();
 
-
-
-
-
-    //-----------------------------------------old
-    //-----------------------------------------first ring
-    // pros::delay(500);
-    // chassis.turnToPoint(-23, 47, 3000);
-    
-    // chassis.moveToPoint(-23,48,2000,{true},true);
-    // pros::delay(1500);
-    // chassis.turnToHeading(90,500); 
-    // pros::delay(2000);
-    // chassis.moveToPose(-1,40,100,1000,{true},true);
-    // pros::delay(1500);
-    // chassis.setPose(0,0,90);
-    // chassis.moveToPoint(-20, 0, 1000, {false}, true);
-    // //退出來
-    // chassis.turnToHeading(65,500);
-    // pros::delay(500);
-    // chassis.setPose(0,0,90);
-    // chassis.moveToPoint(20, 0, 1000, {true}, true);
-    // pros::delay(500);
-    // chassis.moveToPoint(0, 0, 1000, {false}, false);
-    // pros::delay(500);
-    // chassis.setPose(0,0,90);
-    // pros::delay(500);
-    // //3 rings and exit
-    // //-----------------------------------------third ring and exit
-    // chassis.turnToHeading(180,500);
-    // pros::delay(500);
-    // chassis.setPose(0,0,180);
-    // chassis.moveToPoint(0, -140, 1000, {true}, false);
-    // pros::delay(1000);
-    // subsystem::pneumatics.hook_auto(false);
-    // subsystem::intake.stop();
-
-
-
-
-    
-
 }

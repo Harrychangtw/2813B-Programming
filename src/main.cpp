@@ -59,8 +59,8 @@ void competition_initialize() {
 
 void autonomous() {
    
-    team = true;
-    Red::right();
+    team = false;
+    Blue::left();
     printf("autonomous\n");
     off = true;
     /*
