@@ -59,9 +59,9 @@ void competition_initialize() {
 
 void autonomous() {
    
-    team = false;
-    Blue::left();
-    printf("autonomous\n");
+   
+    team = true;
+    Skill::skill();//Skill 
     off = true;
     /*
     switch(Teamselector::get_auton()) {

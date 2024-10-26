@@ -1,12 +1,65 @@
 #include "auto/auto.hpp"
+#include "liblvgl/extra/layouts/flex/lv_flex.h"
 #include "pros/rtos.hpp"
+#include "setup.hpp"
 
 //關掉自動時執行的task
 extern bool off;
 
 ASSET(t1_txt);
 void Skill::skill() {
+    
+    pros::Task intake_run([&]() {
+        while(off) {
+            subsystem::intake.auto_run();
+            pros::delay(10);
+        }
+    });
 
+    //front:intake
+    //back:hook
+    chassis.setPose(-53,0,270);
+    subsystem::arm.pid_arm(Arm::position::MID, 50, 5, 150);
+    chassis.moveToPoint(-60.5,0,1000,{true},false);
+    subsystem::arm.pid_arm(Arm::position::MID_IN, 100, 3, 50);
+
+    chassis.moveToPoint(-47.5,0,1000,{false},true);
+    
+    subsystem::arm.pid_arm(Arm::position::DOWN, 50, 3, 150);
+    chassis.waitUntilDone();
+    //get stack 1
+    chassis.turnToHeading(0,1000);
+
+    
+    chassis.moveToPoint(-47.5,-23.25, 1000,{false},false);
+    subsystem::pneumatics.hook_auto(true);
+
+    //get ring 1->stack1
+    chassis.moveToPoint(-23.25,-23.25, 1000,{true},true);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
+    chassis.waitUntilDone();
+    //get ring 2->stack1
+    chassis.moveToPoint(23.25,-47.5, 3000,{true},false);
+    pros::delay(200);
+
+    chassis.moveToPoint(0,-47.5, 3000,{false},false);
+    
+    //get ring 3->arm
+    chassis.turnToPoint(0,-59.75, 1000);    
+    chassis.moveToPoint(0,-59.75, 1000,{true},false);
+    subsystem::intake.auto_spin(Intake::mode::INTAKEtoARM,600);
+
+    //bottom wall stack
+    chassis.moveToPoint(0,-50.75, 1000,{false},false);
+    subsystem::arm.pid_arm(Arm::position::UP, 50, 3, 150);
+
+    chassis.moveToPoint(0,-60.5, 1000,{false},false);
+
+
+
+
+
+    
 
 
 
