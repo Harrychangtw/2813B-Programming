@@ -58,11 +58,13 @@ void competition_initialize() {
 
 
 void autonomous() {
+   team = true;
+   Red::right();
+   off = true;
    
-   
-    team = true;
-    Skill::skill();//Skill 
-    off = true;
+    // team = true;
+    // Skill::skill();//Skill 
+    // off = true;
     /*
     switch(Teamselector::get_auton()) {
 		case 0:

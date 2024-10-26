@@ -22,11 +22,11 @@ void Blue::left() {
     
     
     chassis.swingToPoint(24, -47,DriveSide::LEFT,4000,{},true);
-    pros::delay(100);
+    pros::delay(200);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,800,0);
     pros::delay(500);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,500,0,1);
-    chassis.moveToPoint(24, -47, 2000);
+    chassis.moveToPoint(24, -47.5, 2000);
     
     subsystem::pneumatics.hook_auto(false);
     subsystem::intake.auto_spin(Intake::mode::STOP, false);
@@ -42,8 +42,11 @@ void Blue::left() {
     chassis.moveToPoint(48, -0, 2000,{.forwards=true,.maxSpeed=60});
     pros::delay(800);
     chassis.moveToPoint(53, 7, 2000,{.forwards=true,.maxSpeed=60});
-    pros::delay(2000);
-    chassis.moveToPoint(23, 0, 2000,{.forwards=true,.maxSpeed=100});
+    pros::delay(1500);
+    chassis.moveToPose(48,-18,270,1000,{.earlyExitRange=3},false);
+    
+    chassis.moveToPoint(3, -23, 2000,{.forwards=true,.maxSpeed=80});
+    
     //------------------------
     /*
     //strat:go straigjt touch the latter
