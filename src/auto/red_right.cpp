@@ -25,11 +25,13 @@ void Red::right() {
 
     
     
-    chassis.swingToPoint(-23, -47,DriveSide::RIGHT,4000,{},true);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,400,1);
-    
+    chassis.swingToPoint(-24, -47,DriveSide::LEFT,4000,{},true);
+    pros::delay(100);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,800,0);
+    pros::delay(500);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,500,0,1);
     chassis.moveToPoint(-24, -47, 2000);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,400,300,0);
+    
     subsystem::pneumatics.hook_auto(false);
     subsystem::intake.auto_spin(Intake::mode::STOP, false);
     pros::delay(200);
@@ -37,13 +39,22 @@ void Red::right() {
     subsystem::pneumatics.hook_auto(true);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
    
+    //strat: go to the middle
     chassis.turnToPoint(-48, 0, 1000);
     chassis.moveToPoint(-38, -10, 2000,{.forwards=true,.maxSpeed=100},true);
-    pros::delay(900);
-    chassis.moveToPoint(-48, -0, 2000,{.forwards=true,.maxSpeed=50});
-    pros::delay(200);
+    pros::delay(1200);
+    chassis.moveToPoint(-48, -0, 2000,{.forwards=true,.maxSpeed=60});
+    pros::delay(800);
     chassis.moveToPoint(-53, 7, 2000,{.forwards=true,.maxSpeed=60});
     pros::delay(2000);
     chassis.moveToPoint(-23, 0, 2000,{.forwards=true,.maxSpeed=100});
+    //------------------------
+    /*
+    //strat:go straigjt touch the latter
 
+    chassis.moveToPoint(-24, -3, 2000,{false},false);
+    //-------------------------
+    */
 }
+
+
