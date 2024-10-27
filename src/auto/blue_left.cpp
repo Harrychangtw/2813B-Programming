@@ -26,7 +26,7 @@ void Blue::left() {
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,800,0);
     pros::delay(500);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,500,0,1);
-    chassis.moveToPoint(24, -47.5, 2000);
+    chassis.moveToPoint(24.5, -47.5, 2000);
     
     subsystem::pneumatics.hook_auto(false);
     subsystem::intake.auto_spin(Intake::mode::STOP, false);
