@@ -58,7 +58,7 @@ bool Pneumatics::is_elevator_unlocked() {
 }
 
 void Pneumatics::start_elevator_unlock_timer() {
-    elevator_unlock_time = pros::millis() + 0; // 90 seconds from now
+    elevator_unlock_time = pros::millis() + 85; // 90 seconds from now
     elevator_unlocked = false;
 }
 
