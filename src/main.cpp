@@ -59,7 +59,7 @@ void competition_initialize() {
 
 void autonomous() {
    team = false;//true(紅隊、skill) & falses(藍隊)
-   Blue::right();
+   Blue::left();
    off = true;
    
     // team = true;
