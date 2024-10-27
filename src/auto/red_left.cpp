@@ -59,7 +59,7 @@ void Red::left() {
     chassis.moveToPoint(15, 0, 1000, {true}, false);
     //take third red
     pros::delay(500);
-    chassis.moveToPoint(-15, 0, 2000, {false}, false);
+    chassis.moveToPoint(-17, 0, 2000, {false}, false);
     subsystem::pneumatics.hook_auto(false);
     // subsystem::intake.stop();
 
