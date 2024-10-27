@@ -11,7 +11,7 @@ Arm::Arm(std::uint8_t arm_port, std::uint8_t rotation_port) {
     rotation = std::make_unique<pros::Rotation>(rotation_port);
 
     arm_motor->set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
-    arm_motor->set_gearing(pros::E_MOTOR_GEAR_RED);
+    arm_motor->set_gearing(pros::E_MOTOR_GEAR_GREEN);
     arm_motor->set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
     arm_pid.set_constants(0.05, 0.000001, 0);
