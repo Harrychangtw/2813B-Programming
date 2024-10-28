@@ -15,7 +15,7 @@ void Blue::left() {
     });
 
     chassis.setPose(50,-63,90);
-    chassis.follow(bl1_v2_txt, 15, 5000,false,false);
+    chassis.follow(bl1_v2_txt, 15, 2500,false,false);
     subsystem::pneumatics.hook_auto(true);
 
 
