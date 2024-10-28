@@ -20,11 +20,6 @@ void Red::left() {
         }
     });
 
-
-
-
-    // pros::delay(200000);
-
     int goalx,goaly,startx,starty;
     startx=-58;
     starty=47;
@@ -53,7 +48,7 @@ void Red::left() {
     //back off
     pros::delay(500);
     chassis.setPose(0,0,0);
-    chassis.turnToHeading(-45,500);
+    chassis.turnToHeading(-50,500);
     pros::delay(500);
     chassis.setPose(0,0,90);
     chassis.moveToPoint(15, 0, 1000, {true}, false);
@@ -63,4 +58,12 @@ void Red::left() {
     subsystem::pneumatics.hook_auto(false);
     // subsystem::intake.stop();
 
+<<<<<<< Updated upstream
+=======
+
+
+
+    
+
+>>>>>>> Stashed changes
 }
