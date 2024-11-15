@@ -19,7 +19,7 @@ void Red::right() {
     });
 
     chassis.setPose(-50,-63,270);
-    chassis.follow(rr1_v2_txt, 15, 5000,false,false);
+    chassis.follow(rr1_v2_txt, 15, 2000,false,false);
     subsystem::pneumatics.hook_auto(true);
 
 
