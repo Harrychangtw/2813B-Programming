@@ -62,9 +62,16 @@ void autonomous() {
     Blue::left();
    off = true;
    
+<<<<<<< Updated upstream
     // team = true;
     // Skill::skill();//Skill 
     // off = true;
+=======
+    team = false;
+    Blue::right();
+    printf("autonomous\n");
+    off = true;
+>>>>>>> Stashed changes
     /*
     switch(Teamselector::get_auton()) {
 		case 0:
