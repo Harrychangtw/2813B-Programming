@@ -25,17 +25,17 @@ void Red::right() {
 
     
     
-    chassis.swingToPoint(-24, -47,DriveSide::RIGHT,4000,{},true);
+    chassis.swingToPoint(-24, -43,DriveSide::RIGHT,4000,{},true);
     pros::delay(200);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,800,0);
     pros::delay(500);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,500,0,1);
-    chassis.moveToPoint(-24, -47.5, 2000);
+    chassis.moveToPoint(-24, -42, 2000);
     
     subsystem::pneumatics.hook_auto(false);
     subsystem::intake.auto_spin(Intake::mode::STOP, false);
     pros::delay(200);
-    chassis.moveToPoint(-24, -28, 2000,{false},false);
+    chassis.moveToPoint(-24, -26, 2000,{false},false);
     subsystem::pneumatics.hook_auto(true);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
    

@@ -58,20 +58,11 @@ void competition_initialize() {
 
 
 void autonomous() {
-   team = false;//true(紅隊、skill) & falses(藍隊)
-    Blue::left();
+   team = true;//true(紅隊、skill) & falses(藍隊)
+   Red::left();
    off = true;
    
-<<<<<<< Updated upstream
-    // team = true;
-    // Skill::skill();//Skill 
-    // off = true;
-=======
-    team = false;
-    Blue::right();
-    printf("autonomous\n");
-    off = true;
->>>>>>> Stashed changes
+
     /*
     switch(Teamselector::get_auton()) {
 		case 0:
