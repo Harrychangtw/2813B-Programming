@@ -11,7 +11,7 @@ Arm::Arm(std::uint8_t arm_port, std::uint8_t rotation_port) {
     rotation = std::make_unique<pros::Rotation>(rotation_port);
 
     arm_motor->set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
-    arm_motor->set_gearing(pros::E_MOTOR_GEAR_GREEN);
+    arm_motor->set_gearing(pros::E_MOTOR_GEAR_BLUE);
     arm_motor->set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
     arm_pid.set_constants(0.05, 0.000001, 0);
@@ -36,7 +36,6 @@ void Arm::down() {
     arm_motor->move_velocity((arm_pid.update(error_down)));
     // arm_motor->move_voltage(-12000);
 }
-
 //手臂停止
 void Arm::stop() {
     arm_motor->brake();
@@ -123,18 +122,15 @@ void Arm::remote(pros::Controller Controller) {
             new_control = false;
             this->down();
         }
-        // else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
-        //     move_break = true;
-        //     pros::delay(10);
-        //     new_control = true;
-        //     state = Arm::position::UP;
-        // }
-        // else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
-        //     move_break = true;
-        //     pros::delay(10);
-        //     new_control = true;
-        //     state = Arm::position::MID;
-        // }
+        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
+            move_break = true;
+            pros::delay(10);
+            new_control = true;
+            state = Arm::position::INTAKE;
+            arm_move();
+
+
+        }
         else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {//待測試
             move_break = true;
             pros::delay(10);

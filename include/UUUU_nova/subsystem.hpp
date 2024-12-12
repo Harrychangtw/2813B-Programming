@@ -5,11 +5,11 @@
 
 namespace subsystem{
     //intake的函式庫
-    static Intake intake(20, 9, 14, 'C', 16);//{-13,14}, 
+    static Intake intake(20, 9, 2, 'C', 11);//{-13,14}, 
 
     //氣動的函式庫
     static Pneumatics pneumatics('G', 'B', 'A', 'D');
 
     //手臂的函式庫
-    static Arm arm(7, 8);
+    static Arm arm(13, 1);
 }

@@ -25,12 +25,12 @@ void Red::right() {
 
     
     
-    chassis.swingToPoint(-24, -43,DriveSide::RIGHT,4000,{},true);
+    chassis.swingToPoint(-24, -47,DriveSide::RIGHT,4000,{},true);
     pros::delay(200);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,800,0);
     pros::delay(500);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,500,0,1);
-    chassis.moveToPoint(-24, -42, 2000);
+    chassis.moveToPoint(-24, -45.5, 2000);
     
     subsystem::pneumatics.hook_auto(false);
     subsystem::intake.auto_spin(Intake::mode::STOP, false);
@@ -40,26 +40,14 @@ void Red::right() {
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
    
     //strat: go to the middle
-    chassis.turnToPoint(-48, 0, 1000);
-    chassis.moveToPoint(-38, -10, 2000,{.forwards=true,.maxSpeed=100},true);
-    pros::delay(1200);
-    chassis.moveToPoint(-48, -0, 2000,{.forwards=true,.maxSpeed=60});
-    pros::delay(800);
-    chassis.moveToPoint(-53, 7, 2000,{.forwards=true,.maxSpeed=60});
-    pros::delay(1500);
-    chassis.moveToPose(-48,-18,0,1000,{.forwards=true,.earlyExitRange=1},false);
-    
-    chassis.moveToPoint(-3, -23, 2000,{.forwards=true,.maxSpeed=80});
-    
+
     
     
     //------------------------
-    /*
+    
     //strat:go straigjt touch the latter
-
-    chassis.moveToPoint(-24, -3, 2000,{false},false);
+    pros::delay(1200);
+    chassis.moveToPoint(-7, -24, 2000,{true},false);
     //-------------------------
-    */
+    
 }
-
-

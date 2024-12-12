@@ -45,16 +45,17 @@ void Red::left() {
 
     chassis.turnToPoint(-3.5, 43.5, 1200);
 
-    chassis.moveToPose(-7,43.5,-270,1500,{.forwards=true,.maxSpeed=90},false);
+    chassis.moveToPose(-8,43.5,-270,1500,{.forwards=true,.maxSpeed=90},false);
+
     pros::delay(500);
 
     chassis.moveToPose(-30,49,-270,1000,{.forwards=false,.maxSpeed=90,.earlyExitRange=5},false);
     
 
     
-    chassis.moveToPoint(-7,50,1500,{.forwards=true,.maxSpeed=90},false);
+    chassis.moveToPoint(-8,50,1500,{.forwards=true,.maxSpeed=90},false);
 
-    pros::delay(700);
+    pros::delay(900);
     
 
     chassis.moveToPoint(-23,7,2200,{.forwards=true,.maxSpeed=100},false);
