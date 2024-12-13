@@ -28,9 +28,9 @@ Intake::Intake( std::uint8_t intake_port, std::uint8_t pto_port, std::int8_t dis
 }
 
 //Intake正轉，預設600rpm 包含卡住反轉
-void Intake::intake(int rpm, bool stuck) { 
+void Intake::intake(int rpm, bool stuck,bool stuckcheck) { 
 // printf("vel:%f - ti:%d\n",intake_motor->get_actual_velocity(),ti);
-    if(abs(intake_motor->get_actual_velocity()) < 20 && stuck) {
+    if(abs(intake_motor->get_actual_velocity()) < 20 && (stuck&&stuckcheck)) {
         if(ti > 50) {
             ti = 0;
             this->stop();
@@ -260,7 +260,7 @@ void Intake::remote(pros::Controller Controller) {
             Pneumatics::intake_pne = false;
             Arm::move_break = true;
             Pneumatics::state = true;
-            armI.pid_arm(Arm::position::DOWN);
+            armI.pid_arm(Arm::position::INTAKE);
             Pneumatics::state = false;
         }
 
@@ -273,8 +273,7 @@ void Intake::remote(pros::Controller Controller) {
     }
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
         // controller.print(1,0,"Intake Mode");
-        t = pros::millis();
-        this->intake();
+        this->intake(600,true,false);
     }
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
         // controller.print(1,0,"Outtake Mode");

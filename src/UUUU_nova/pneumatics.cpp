@@ -69,16 +69,16 @@ void Pneumatics::remote(pros::Controller Controller) {
         this->hook.toggle();
     }
     
-    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
+    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
         this->hand.toggle();
     }
-    // if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
-    //     this->intake_up.toggle();
-    // }
+    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {
+        this->intake_up.toggle();
+    }
     
     
     // Only allow elevator toggle if it's unlocked
-    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X) && is_elevator_unlocked()) {
+    if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
         this->ele.toggle();
     }
 }

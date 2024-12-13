@@ -35,7 +35,7 @@ public:
     };
 
     //Intake正轉，預設600rpm，預設開啟卡住反轉
-    void intake(int rpm = 600, bool stuck = true);
+    void intake(int rpm = 600, bool stuck = true, bool stuckcheck=true);
 
     //Intake反轉，預設600rpm(請填正值)
     void outtake(int rpm = 600);

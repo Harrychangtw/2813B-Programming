@@ -1,4 +1,5 @@
 #include "UUUU_nova/arm.hpp"
+#include "pros/misc.h"
 #include "pros/motors.h"
 #include "setup.hpp"
 
@@ -11,7 +12,7 @@ Arm::Arm(std::uint8_t arm_port, std::uint8_t rotation_port) {
     rotation = std::make_unique<pros::Rotation>(rotation_port);
 
     arm_motor->set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
-    arm_motor->set_gearing(pros::E_MOTOR_GEAR_BLUE);
+    arm_motor->set_gearing(pros::E_MOTOR_GEAR_GREEN);
     arm_motor->set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
     arm_pid.set_constants(0.05, 0.000001, 0);
@@ -21,20 +22,15 @@ Arm::Arm(std::uint8_t arm_port, std::uint8_t rotation_port) {
 //手臂遙控抬升
 void Arm::up() {
     error_up = Arm::position::UP - rotation->get_angle();
-    arm_motor->move_velocity((arm_pid.update(error_up)));
+    arm_motor->move_velocity((arm_pid.update(error_up))); 
     // arm_motor->move_voltage(12000);
 }
 
 //手臂遙控下降
 void Arm::down() {
-    if(Pneumatics::intake_pne) {
-        error_down = Arm::position::INTAKE - rotation->get_angle();
-    }
-    else {
-        error_down = Arm::position::DOWN - rotation->get_angle();
-    }
-    arm_motor->move_velocity((arm_pid.update(error_down)));
-    // arm_motor->move_voltage(-12000);
+    error_down = Arm::position::DOWN - rotation->get_angle();
+    arm_motor->move_velocity((arm_pid.update(error_down))); 
+
 }
 //手臂停止
 void Arm::stop() {
@@ -72,7 +68,7 @@ void Arm::pid_arm(Arm::position position, int ess, int stabletime, int outtime) 
         error = static_cast<double>(position) - rotation->get_angle();
 
         // printf("%d\n", rotation->get_angle());
-        arm_motor->move_velocity((arm_pid.update(error)));
+        arm_motor->move_velocity((arm_pid.update(error))*0.5);
         pros::delay(10);
         // printf("time:%d\n",o);
         o++;
@@ -122,7 +118,7 @@ void Arm::remote(pros::Controller Controller) {
             new_control = false;
             this->down();
         }
-        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {//待測試
+        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {//待測試
             move_break = true;
             pros::delay(10);
             new_control = true;
@@ -130,18 +126,18 @@ void Arm::remote(pros::Controller Controller) {
             arm_move();
 
 
-        }
-        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {//待測試
-            move_break = true;
-            pros::delay(10);
-            new_control = true;
-            if(Pneumatics::intake_pne) {
-                state = Arm::position::INTAKE;
-            }
-            else {
-                state = Arm::position::DOWN;
-            }
-        }
+     }
+        // else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {//待測試
+        //     move_break = true;
+        //     pros::delay(10);
+        //     new_control = true;
+        //     if(Pneumatics::intake_pne) {
+        //         state = Arm::position::INTAKE;
+        //     }
+        //     else {
+        //         state = Arm::position::DOWN;
+        //     }
+        // }
         else {
             if(rotation->get_angle() < (Arm::position::INTAKE - 50)) {
                 arm_motor->set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);

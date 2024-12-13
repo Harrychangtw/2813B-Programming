@@ -32,9 +32,7 @@ void initialize() {
 
     pros::Task task([&]() {
         while (true) {
-            printf("X: %.2f", chassis.getPose().x);
-            printf("  Y: %.2f", chassis.getPose().y);
-            printf("  Deg: %.2f\n", chassis.getPose().theta);
+
             fflush(stdout);
             pros::delay(50);
         }
@@ -58,8 +56,8 @@ void competition_initialize() {
 
 
 void autonomous() {
-   team = true;//true(紅隊、skill) & falses(藍隊)
-   Red::left();
+   team = false;//true(紅隊、skill) & falses(藍隊)
+   Blue::left();
    off = true;
    
 
