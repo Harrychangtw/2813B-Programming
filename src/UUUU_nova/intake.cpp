@@ -61,32 +61,31 @@ void Intake::SWColor() {
     pros::c::optical_raw_s_t raw = color->get_raw();
     if(team == true) {//teamRed
         //printf("val:%d \n", raw.blue);//顯示ＲＧＢ值
-        if(this->dis_check(10) || t + 15 < pros::millis()) {//
+  
             // printf("time:%u - t:%u\n", pros::millis(), t);
 
-            if(raw.blue-raw.red>raw.blue*0.3&&raw.blue/raw.red>1.1) {//看到藍色的數值
-                this->color_air.extend();
-            }
-            
-            if((pros::millis() - t) > 500) {
-                // printf("%u - t:%u\n",pros::millis(),t);
-                t = pros::millis();
-            }
-            
+        if(raw.blue-raw.red>raw.red*0.3&&raw.blue/raw.red>1.1) {//看到藍色的數值
+            this->color_air.extend();
         }
-        else {
+        else 
+        {
             this->color_air.retract();
-            // printf("state:non\n");
+        }
+            
+        if((pros::millis() - t) > 500) {
+                // printf("%u - t:%u\n",pros::millis(),t);
             t = pros::millis();
         }
+
+
     }
     else if(team == false) {//teamBlue
-        // printf("val:%d \n", raw.red);
-        if(this->dis_check(50) || t + 15 < pros::millis()) {//
-            // printf("time:%u - t:%u\n", pros::millis(), t);
-            
-            if(raw.red-raw.blue>raw.red*0.3&&raw.red/raw.blue>1.1) {//看到紅色的數值
+           
+            if(raw.red-raw.blue>raw.blue*0.3&&raw.red/raw.blue>1.1) {//看到紅色的數值
                 this->color_air.extend();
+            }
+            else {
+                this->color_air.retract();
             }
             
             if((pros::millis() - t) > 500) {
@@ -94,12 +93,8 @@ void Intake::SWColor() {
                 t = pros::millis();
             }
         }
-        else {
-            this->color_air.retract();
-            // printf("state:non\n");
-            t = pros::millis();
-        }
-    }
+ 
+    
 }
 
 //自動時，給予intake作動，mode : INTAKE(正轉), STOP(停止), OUTTAKE(反轉), SPINFOR(固定角度)
@@ -269,7 +264,7 @@ void Intake::remote(pros::Controller Controller) {
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
         // controller.print(1,0,"Intake Sort Mode");
         this->SWColor();
-        this->intake(500);
+        this->intake(600);
     }
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
         // controller.print(1,0,"Intake Mode");
