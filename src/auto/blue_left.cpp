@@ -21,33 +21,43 @@ void Blue::left() {
 
 
     
-    
-    chassis.swingToPoint(24, -42,DriveSide::LEFT,4000,{},true);
-    pros::delay(200);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,2400,0);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,3000,0);
+    chassis.swingToPoint(23, -42,DriveSide::LEFT,4000,{},true);
+
+    chassis.waitUntilDone();
     pros::delay(400);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,500,0,1);
-    chassis.moveToPoint(26.5, -42, 2000);
-    
-    subsystem::pneumatics.hook_auto(false);
-    pros::delay(600);
-    subsystem::intake.auto_spin(Intake::mode::STOP, false);
-    
-    chassis.moveToPoint(24, -26, 2000,{false},false);
-    subsystem::pneumatics.hook_auto(true);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
-    subsystem::pneumatics.intake_auto(true);
-    //strat: go to the middle
-    chassis.turnToPoint(48, 0, 1000);
-    chassis.moveToPoint(38, -10, 2000,{.forwards=true,.maxSpeed=100},true);
-    pros::delay(1200);
-    chassis.moveToPoint(48, -0, 2000,{.forwards=true,.maxSpeed=60});
+    subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,300,7200,0);
+
+    chassis.moveToPoint(30, -38, 2000,{true},false);
+    pros::delay(200);
+    chassis.moveToPoint(37, -34, 2000,{true},false);
     pros::delay(800);
-    chassis.moveToPoint(53, 7, 2000,{.forwards=true,.maxSpeed=60});
-    pros::delay(1500);
-    chassis.moveToPose(48,-18,270,1000,{.earlyExitRange=3},false);
+    subsystem::pneumatics.hook_auto(false);
     
-    chassis.moveToPoint(4, -20, 25000,{.forwards=true,.maxSpeed=80});
+    chassis.turnToHeading(155, 2000);
+    chassis.moveToPoint(23, -18, 2000,{false},false);
+    subsystem::pneumatics.hook_auto(true);
+    pros::delay(400);
+
+    chassis.turnToPoint(40, 0, 1000);
+
+    subsystem::pneumatics.intake_auto(true);
+    pros::delay(200);
+    chassis.moveToPoint(40, 0, 3000,{.forwards=true});
+    pros::delay(200);
+    subsystem::pneumatics.intake_auto(false);
+    chassis.moveToPoint(36, -4, 3000,{.forwards=false});
+    pros::delay(400);
+
+    
+    // pros::delay(1200);
+    // chassis.moveToPoint(48, -0, 2000,{.forwards=true,.maxSpeed=60});
+    // pros::delay(800);
+    // chassis.moveToPoint(53, 7, 2000,{.forwards=true,.maxSpeed=60});
+    // pros::delay(1500);
+    // chassis.moveToPose(48,-18,270,1000,{.earlyExitRange=3},false);
+    
+    // chassis.moveToPoint(4, -20, 25000,{.forwards=true,.maxSpeed=80});
     
 
     

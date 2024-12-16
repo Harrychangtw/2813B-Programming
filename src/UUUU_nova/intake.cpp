@@ -115,7 +115,7 @@ void Intake::auto_spin(Intake::mode mode, bool colorSW, int val, int deg, int co
 //intake自動時的動作程式
 void Intake::auto_run() {
     if(on_off == Intake::mode::INTAKE) {
-        this->intake(auto_val);
+        this->intake(600,true,false);
         if(look) {
             this->SWColor();
         }
@@ -269,7 +269,7 @@ void Intake::remote(pros::Controller Controller) {
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
         // controller.print(1,0,"Intake Sort Mode");
         this->SWColor();
-        this->intake();
+        this->intake(500);
     }
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
         // controller.print(1,0,"Intake Mode");

@@ -28,7 +28,7 @@ public:
         UP = 21418,
         MID = 17777,
         MID_IN = 10000, 
-        INTAKE = 2678,
+        INTAKE = 3478,
         DOWN = 1088
     };
 

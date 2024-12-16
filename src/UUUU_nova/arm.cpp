@@ -22,15 +22,19 @@ Arm::Arm(std::uint8_t arm_port, std::uint8_t rotation_port) {
 //手臂遙控抬升
 void Arm::up() {
     error_up = Arm::position::UP - rotation->get_angle();
-    arm_motor->move_velocity((arm_pid.update(error_up))); 
+    arm_motor->move_velocity((arm_pid.update(error_up)));
     // arm_motor->move_voltage(12000);
 }
 
 //手臂遙控下降
 void Arm::down() {
-    error_down = Arm::position::DOWN - rotation->get_angle();
-    arm_motor->move_velocity((arm_pid.update(error_down))); 
-
+    if(Pneumatics::intake_pne) {
+        error_down = Arm::position::INTAKE - rotation->get_angle();
+    }
+    else {
+        error_down = Arm::position::DOWN - rotation->get_angle();
+    }
+    arm_motor->move_velocity((arm_pid.update(error_down)));
 }
 //手臂停止
 void Arm::stop() {
@@ -133,7 +137,7 @@ void Arm::remote(pros::Controller Controller) {
         //     new_control = true;
         //     if(Pneumatics::intake_pne) {
         //         state = Arm::position::INTAKE;
-        //     }
+        //     } 
         //     else {
         //         state = Arm::position::DOWN;
         //     }
