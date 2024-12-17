@@ -27,11 +27,9 @@ public:
     enum position {
         //put low
         UP = 21418,
-        //put high:
-        MID = 17777,
-        //prepare high:
-        MID_IN = 10000, 
-        INTAKE = 3078,
+        MID = 20327,
+        MID_IN = 14300, 
+        INTAKE = 3178,
         DOWN = 1088
     };
 
