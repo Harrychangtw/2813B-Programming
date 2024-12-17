@@ -24,39 +24,44 @@ void Red::left() {
     //wall stake
     subsystem::arm.pid_arm(Arm::position::UP, 50, 5, 100);
     chassis.setPose(0,0,0);
-    chassis.moveToPoint(0,-17,700,{false},true);
+    chassis.moveToPoint(0,-17,700,{.forwards=false,.minSpeed=70},true);
     subsystem::arm.pid_arm(Arm::position::DOWN,50,5,150);
-
-    chassis.setPose(-46,22,225);
-    chassis.moveToPose(-25,23,270,1000,{.forwards=false},false);
+    chassis.setPose(-41,20,225);
+    chassis.moveToPose(-20,20,270,1500,{.forwards=false,.minSpeed=70},false);
     subsystem::pneumatics.hook_auto(true);
+    chassis.setPose(-30,22,270);
     //mobile goal
-    subsystem::pneumatics.intake_auto(true);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
-    chassis.moveToPose(-47,0,180,1000,{.forwards=true},false);
+    subsystem::pneumatics.intake_auto(true);
+    chassis.moveToPose(-47,0,180,3000,{.forwards=true,.minSpeed=70},false);
     subsystem::pneumatics.intake_auto(false);
+    pros::delay(200);
     //first red
-    chassis.moveToPose(-20,23,270,2000,{.forwards=false},false);
-    chassis.turnToHeading(0,1000);
-    pros::delay(50);
+    chassis.moveToPose(-19,20,270,3000,{.forwards=false,.maxSpeed=60},false);
+    chassis.turnToHeading(0,500);
+    pros::delay(500);
     chassis.setPose(0,0,0);
     chassis.moveToPoint(0,20,1000,{.forwards=true},false);
     pros::delay(50);
     chassis.setPose(-23,47,0);
     pros::delay(50);
     //take first red
+    chassis.turnToHeading(100,700);
+    pros::delay(700);
+    chassis.setPose(0,0,90);
+    chassis.moveToPoint(15,0,1000,{.forwards=true,.maxSpeed=60},false);
+    pros::delay(100);
+    chassis.moveToPoint(0,0,1000,{.forwards=false},false);
+    //second red
+    chassis.setPose(0,0,20);
+    chassis.turnToHeading(0,500);
+    pros::delay(500);
+    chassis.setPose(0,0,90);
+    chassis.moveToPoint(15,0,1000,{.forwards=true,.maxSpeed=60},false);
+    pros::delay(100);
+    chassis.moveToPoint(0,0,1000,{.forwards=false},false);
+    //third red
+    chassis.turnToHeading(135,600);
+    chassis.moveToPoint(0,-27,3000);
 
-    chassis.turnToHeading(90,500);
-    chassis.moveToPose(-6,50,120,3000,{.forwards=true},false);
-    pros::delay(50);
-    //take second red
-    chassis.moveToPoint(-23,47,2500,{false},false);
-    chassis.moveToPose(-6,40,90,2500,{.forwards=true},false);
-    //take third red
-    chassis.moveToPoint(-23,47,2500,{false},false);
-    chassis.moveToPose(-3,20,90,3000,{true},false);
-
-
-    
-    
 }
