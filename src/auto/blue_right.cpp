@@ -8,10 +8,7 @@
 
 //關掉自動時執行的task
 extern bool off;
-ASSET(blueright1v1_txt);
-ASSET(blueright2v1_txt);
-ASSET(blueright3v1_txt);
-ASSET(blueright1v3_txt);
+
 void Blue::right() {
     pros::Task intake_run([&]() {
         while(off) {

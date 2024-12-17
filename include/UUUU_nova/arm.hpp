@@ -27,7 +27,7 @@ public:
     enum position {
         //put low
         UP = 21418,
-        MID = 20327,
+        MID = 20727,
         MID_IN = 14300, 
         INTAKE = 3178,
         DOWN = 1088
