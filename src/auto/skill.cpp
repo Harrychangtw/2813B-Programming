@@ -55,27 +55,4 @@ void Skill::skill() {
 
     chassis.moveToPoint(0,-60.5, 1000,{false},false);
 
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

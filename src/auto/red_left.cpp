@@ -19,46 +19,44 @@ void Red::left() {
             pros::delay(10);
         }
     });
+    chassis.setPose(0,0,0);
+    chassis.moveToPoint(0,6,500,{true},true);
+    //wall stake
+    subsystem::arm.pid_arm(Arm::position::UP, 50, 5, 100);
+    chassis.setPose(0,0,0);
+    chassis.moveToPoint(0,-17,700,{false},true);
+    subsystem::arm.pid_arm(Arm::position::DOWN,50,5,150);
 
-    chassis.setPose(-58, 11, 270);
-    chassis.swingToPoint(-68, 0,DriveSide::RIGHT,1000,{},true);
-    pros::delay(200);
-    subsystem::arm.pid_arm(Arm::position::MID, 50, 3, 150);
-    
-    chassis.moveToPoint(-60,7,1000,{true},false);
-    subsystem::arm.pid_arm(Arm::position::MID_IN, 100, 3, 50);
-    
-    chassis.moveToPoint(-17,27,1200,{.forwards=false,.maxSpeed=100},false);
+    chassis.setPose(-46,22,225);
+    chassis.moveToPose(-25,23,270,1000,{.forwards=false},false);
     subsystem::pneumatics.hook_auto(true);
-    pros::delay(300);
+    //mobile goal
+    subsystem::pneumatics.intake_auto(true);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
+    chassis.moveToPose(-47,0,180,1000,{.forwards=true},false);
+    subsystem::pneumatics.intake_auto(false);
+    //first red
+    chassis.moveToPose(-20,23,270,2000,{.forwards=false},false);
+    chassis.turnToHeading(0,1000);
+    pros::delay(50);
+    chassis.setPose(0,0,0);
+    chassis.moveToPoint(0,20,1000,{.forwards=true},false);
+    pros::delay(50);
+    chassis.setPose(-23,47,0);
+    pros::delay(50);
+    //take first red
+
+    chassis.turnToHeading(90,500);
+    chassis.moveToPose(-6,50,120,3000,{.forwards=true},false);
+    pros::delay(50);
+    //take second red
+    chassis.moveToPoint(-23,47,2500,{false},false);
+    chassis.moveToPose(-6,40,90,2500,{.forwards=true},false);
+    //take third red
+    chassis.moveToPoint(-23,47,2500,{false},false);
+    chassis.moveToPose(-3,20,90,3000,{true},false);
 
 
-
-
-
-    chassis.moveToPoint(-23.5,50,1200,{.forwards=true,.maxSpeed=100},true);
-
-    subsystem::arm.pid_arm(Arm::position::DOWN, 50, 3, 150);
-    chassis.waitUntilDone();
-    pros::delay(300);
-
-    chassis.turnToPoint(-3.5, 43.5, 1200);
-
-    chassis.moveToPose(-8,43.5,-270,1500,{.forwards=true,.maxSpeed=90},false);
-
-    pros::delay(500);
-
-    chassis.moveToPose(-30,49,-270,1000,{.forwards=false,.maxSpeed=90,.earlyExitRange=5},false);
     
-
     
-    chassis.moveToPoint(-8,50,1500,{.forwards=true,.maxSpeed=90},false);
-
-    pros::delay(900);
-    
-
-    chassis.moveToPoint(-23,7,2200,{.forwards=true,.maxSpeed=100},false);
-
-
 }
