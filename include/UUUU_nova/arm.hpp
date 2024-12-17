@@ -31,8 +31,7 @@ public:
         MID = 17777,
         //prepare high:
         MID_IN = 10000, 
-        
-        INTAKE = 2678,
+        INTAKE = 3078,
         DOWN = 1088
     };
 

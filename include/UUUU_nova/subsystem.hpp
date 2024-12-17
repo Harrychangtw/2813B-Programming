@@ -5,7 +5,7 @@
 
 namespace subsystem{
     //intake的函式庫
-    static Intake intake(20, 9, 2, 'H', 11);//{-13,14}, 
+    static Intake intake(20, 9, 2, 'H', 4);//{-13,14}, 
 
     //氣動的函式庫
     static Pneumatics pneumatics('C', 'F', 'A', 'B');//ele:left hand hand: right hand
