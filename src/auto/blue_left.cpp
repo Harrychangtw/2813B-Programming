@@ -15,51 +15,54 @@ void Blue::left() {
             pros::delay(10);
         }
     });
-    chassis.setPose(51,-63,90);
-    chassis.follow(bl1_v2_txt, 15, 2000,false,false);
-    subsystem::pneumatics.hook_auto(true);
-
-
-    
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, false,600,3000,0);
-    chassis.swingToPoint(23, -42,DriveSide::LEFT,2200,{},true);
-
-    chassis.waitUntilDone();
-    pros::delay(400);
-    subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,600,2400,0);
-
-    chassis.moveToPoint(23, -40, 2000,{true},false);
+    chassis.setPose(58, -13, 90);
+    chassis.turnToPoint(68, 0,1000);
     pros::delay(200);
+    subsystem::arm.pid_arm(Arm::position::MID, 200, 1, 100);
+    subsystem::arm.pid_arm(Arm::position::DOWN, 200, 1, 50);
     
-    chassis.moveToPoint(37, -31, 2000,{true},true);
-    pros::delay(500);
-    subsystem::pneumatics.hook_auto(false);
-    chassis.waitUntilDone();
-
-  
-    
-    chassis.turnToHeading(130, 600);
-    chassis.moveToPoint(23, -18, 2000,{.forwards=false,.maxSpeed=90},true);
-    pros::delay(800);
-    subsystem::pneumatics.hook_auto(true);
-    chassis.waitUntilDone();
-    chassis.turnToPoint(38, 0, 1000);
-
+    chassis.moveToPoint(47,-20,1200,{.forwards=false,.maxSpeed=100},true);
 
     subsystem::pneumatics.intake_auto(true);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,0);
-
-    pros::delay(200);
-    chassis.moveToPoint(39.6, 3, 3000,{.forwards=true,.maxSpeed=90});
-    pros::delay(400);
-    subsystem::pneumatics.intake_auto(false);
-    chassis.moveToPoint(36, -15, 3000,{.forwards=false});
- 
-    chassis.moveToPose(23.5,-23.5,315,2000,{.forwards=false,.earlyExitRange=4},false);
-
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
+    
+    chassis.waitUntilDone();
+    chassis.turnToPoint(44,0,700);
+    chassis.moveToPoint(44,0,1500,{.forwards=true,.maxSpeed=70},false);
     
 
-     chassis.moveToPoint(10, -10, 3000,{});
+
+    subsystem::pneumatics.intake_auto(false);
+    chassis.moveToPoint(44,-6,2200,{.forwards=false,.maxSpeed=100},false);
+    subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,600,360,1);
+    pros::delay(500);
+    chassis.turnToHeading(60,600);
+
+    chassis.moveToPoint(23.5,-21.5,2200,{.forwards=false,.maxSpeed=70},false);
+    subsystem::pneumatics.hook_auto(true);
+    pros::delay(300);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,500,1);
+
+    pros::delay(500);
+    chassis.turnToHeading(150,600);
+    subsystem::pneumatics.hook_auto(false);
+    chassis.moveToPoint(24,-31,2200,{.forwards=true,.maxSpeed=100},false);
+
+    chassis.turnToHeading(60,1200);
+
+    chassis.moveToPoint(11,-36,1200,{.forwards=false,.maxSpeed=100},false);
+    chassis.moveToPoint(5.3,-40.3,1200,{.forwards=false,.maxSpeed=50},false);
+    
+    subsystem::pneumatics.hook_auto(true);
+
+    pros::delay(200);
+
+    chassis.swingToPoint(20,-47, DriveSide::RIGHT, 2000);
+
+    pros::delay(200);
+
+    chassis.swingToPoint(18,0, DriveSide::LEFT, 700);
+    chassis.moveToPoint(18,-5,2200,{.forwards=true,.maxSpeed=100},false);
 
 
 }
