@@ -28,14 +28,14 @@ static lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, leml
 static lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2, 0.375);
 static lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
-                            &horizontal_tracking_wheel, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
                             &imu // inertial sensor
 );
 
 static lemlib::ControllerSettings lateral_controller(
     8,     // proportional gain (kP) - further reduced from 15
-    0.0001,  // integral gain (kI) - further reduced
+    0.00001,  // integral gain (kI) - further reduced
     0.0001,    // derivative gain (kD) - increased from 200
     3,      // anti windup
     1,      // small error range, in inches
