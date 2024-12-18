@@ -20,10 +20,10 @@ static lemlib::Drivetrain drivetrain(&left_motors, // left motor group
 
 static pros::Imu imu(14);
 
-static pros::Rotation horizontal_encoder(12);//左右
+static pros::Rotation horizontal_encoder(-12);//左右
 static pros::Rotation vertical_encoder(0);//前後
 // horizontal tracking wheel
-static lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2, -2);
+static lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2, 0);
 // vertical tracking wheel
 static lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2, 0.375);
 static lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
