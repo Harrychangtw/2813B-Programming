@@ -1,6 +1,7 @@
 #include "main.h"
 #include "UUUU_nova/subsystem.hpp"
 #include "auto/auto.hpp"
+#include "liblvgl/misc/lv_style.h"
 #include "pros/adi.hpp"
 #include "pros/device.hpp"
 #include "pros/misc.h"
@@ -28,15 +29,8 @@ void initialize() {
     printf("initialize\n");
 	// pros::lcd::initialize();
 	chassis.calibrate();
-    chassis.setPose(0, 0, 0);
 
-    pros::Task task([&]() {
-        while (true) {
 
-            fflush(stdout);
-            pros::delay(50);
-        }
-    });
 
 
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
@@ -54,10 +48,37 @@ void competition_initialize() {
 	Teamselector::init(-3, autons);
 }
 
+void find_tracking_center(float turnVoltage, uint32_t time) {
+  chassis.setPose(0, 0, 0);
+  unsigned long n = 0;
+  float heading;
+
+  std::cout << std::fixed << "\033[1mCopy this:\033[0m\n\\left[";
+  chassis.tank(600, -600);
+
+  auto end_time = time + pros::millis();
+
+  int i = 0;
+  
+  while (pros::millis() < end_time && i++ < 10000) {
+    std::cout << "\\left(" << chassis.getPose().x << "," << chassis.getPose().y << "\\right),";
+    /*if (i % 250 == 0) {
+      std::cout << "\\right]\n\\left[" ;
+    } */
+    if (i % 50 == 0) {
+      std::cout.flush();
+    }
+    pros::delay(20);
+  }  
+  chassis.cancelAllMotions();
+  std::cout << "\b\\right]" << std::endl;
+
+  std::cout << "Go to https://www.desmos.com/calculator/rxdoxxil1j to solve for offsets." << std::endl;
+}
 
 void autonomous() {
-   team = true;//true(紅隊、skill) & falses(藍隊)
-    Red::right();
+   team = false;//true(紅隊、skill) & falses(藍隊)
+   Blue::left();
    off = true;
    
 
@@ -120,6 +141,9 @@ void autonomous() {
 
 
 void opcontrol() {
+    // Example time value in milliseconds
+
+
     printf("opcontrol\n");
    
     off = false;

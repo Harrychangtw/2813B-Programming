@@ -15,47 +15,51 @@ void Blue::left() {
             pros::delay(10);
         }
     });
-    chassis.setPose(50,-63,90);
+    chassis.setPose(51,-63,90);
     chassis.follow(bl1_v2_txt, 15, 2000,false,false);
     subsystem::pneumatics.hook_auto(true);
 
 
     
     subsystem::intake.auto_spin(Intake::mode::INTAKE, false,600,3000,0);
-    chassis.swingToPoint(23, -42,DriveSide::LEFT,4500,{},true);
+    chassis.swingToPoint(23, -42,DriveSide::LEFT,2200,{},true);
 
     chassis.waitUntilDone();
     pros::delay(400);
     subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,600,2400,0);
 
-    chassis.moveToPoint(30, -38, 2000,{true},false);
+    chassis.moveToPoint(23, -40, 2000,{true},false);
     pros::delay(200);
-    chassis.moveToPoint(37, -34, 2000,{true},false);
-    pros::delay(400);
-    subsystem::pneumatics.hook_auto(false);
     
-    chassis.turnToHeading(130, 2000);
-    chassis.moveToPoint(23, -18, 2000,{false},false);
-    subsystem::pneumatics.hook_auto(true);
-    pros::delay(400);
+    chassis.moveToPoint(37, -31, 2000,{true},true);
+    pros::delay(500);
+    subsystem::pneumatics.hook_auto(false);
+    chassis.waitUntilDone();
 
-    chassis.turnToPoint(40, 0, 1000);
+  
+    
+    chassis.turnToHeading(130, 600);
+    chassis.moveToPoint(23, -18, 2000,{.forwards=false,.maxSpeed=90},true);
+    pros::delay(800);
+    subsystem::pneumatics.hook_auto(true);
+    chassis.waitUntilDone();
+    chassis.turnToPoint(38, 0, 1000);
 
 
     subsystem::pneumatics.intake_auto(true);
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,0);
 
     pros::delay(200);
-    chassis.moveToPoint(40, 0, 3000,{.forwards=true});
-    pros::delay(700);
+    chassis.moveToPoint(39.6, 3, 3000,{.forwards=true,.maxSpeed=90});
+    pros::delay(400);
     subsystem::pneumatics.intake_auto(false);
-    chassis.moveToPoint(34, -6, 3000,{.forwards=false});
+    chassis.moveToPoint(36, -15, 3000,{.forwards=false});
  
-    chassis.moveToPose(23.5,-23.5,315,2000,{.forwards=false,.earlyExitRange=3},false);
+    chassis.moveToPose(23.5,-23.5,315,2000,{.forwards=false,.earlyExitRange=4},false);
 
     
 
-     chassis.moveToPoint(13, -13, 3000,{});
+     chassis.moveToPoint(10, -10, 3000,{});
 
 
 }

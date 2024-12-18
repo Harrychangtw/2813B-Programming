@@ -58,27 +58,35 @@ def mirror_coordinates(cpp_content, input_file):
 
     def mirror_setpose(match):
         x, y, angle = match.groups()
-        mirrored_x = f"-{float(x):.1f}" if float(x) != 0 else "0.0"
-        new_angle = f"-{float(angle):.1f}" if float(angle) != 0 else "0.0"
+        x_val = float(x)
+        angle_val = float(angle)
+        # Flip signs
+        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
+        new_angle = f"{-angle_val:.1f}" if angle_val != 0 else "0.0"
         return f'setPose({mirrored_x}, {y}, {new_angle})'
 
     def mirror_point(match):
         command, x, y, rest = match.groups()
-        # Only mirror x coordinate for all commands
-        mirrored_x = f"-{float(x):.1f}" if float(x) != 0 else "0.0"
+        x_val = float(x)
+        # Flip sign
+        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
         return f'{command}Point({mirrored_x}, {y}{rest}'
 
     def mirror_swing_point(match):
         x, y, drive_side, rest = match.groups()
-        # Mirror both x coordinate and drive side
-        mirrored_x = f"-{float(x):.1f}" if float(x) != 0 else "0.0"
+        x_val = float(x)
+        # Flip sign
+        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
         opposite_side = 'LEFT' if drive_side == 'RIGHT' else 'RIGHT'
         return f'swingToPoint({mirrored_x}, {y}, DriveSide::{opposite_side}{rest}'
 
     def mirror_pose(match):
         x, y, angle, time, options, last = match.groups()
-        mirrored_x = f"-{float(x):.1f}" if float(x) != 0 else "0.0"
-        new_angle = f"-{float(angle):.1f}" if float(angle) != 0 else "0.0"
+        x_val = float(x)
+        angle_val = float(angle)
+        # Flip signs
+        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
+        new_angle = f"{-angle_val:.1f}" if angle_val != 0 else "0.0"
         return f'moveToPose({mirrored_x}, {y}, {new_angle}, {time}, {options}, {last})'
 
     def mirror_heading(match):

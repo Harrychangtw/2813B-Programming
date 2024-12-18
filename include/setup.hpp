@@ -23,20 +23,20 @@ static pros::Imu imu(14);
 static pros::Rotation horizontal_encoder(-12);//左右
 static pros::Rotation vertical_encoder(0);//前後
 // horizontal tracking wheel
-static lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2, 0);
+static lemlib::TrackingWheel horizontal_tracking_wheel(&horizontal_encoder, lemlib::Omniwheel::NEW_2, -1.24335534409);
 // vertical tracking wheel
 static lemlib::TrackingWheel vertical_tracking_wheel(&vertical_encoder, lemlib::Omniwheel::NEW_2, 0.375);
 static lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
-                            &horizontal_tracking_wheel, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
                             &imu // inertial sensor
 );
 
 static lemlib::ControllerSettings lateral_controller(
-    8,     // proportional gain (kP) - further reduced from 15
-    0.0001,  // integral gain (kI) - further reduced
-    0.0001,    // derivative gain (kD) - increased from 200
+    15,     // proportional gain (kP) - further reduced from 15
+    0.00001,  // integral gain (kI) - further reduced
+    0.00001,    // derivative gain (kD) - increased from 200
     3,      // anti windup
     1,      // small error range, in inches
     100,    // small error range timeout, in milliseconds
@@ -48,7 +48,7 @@ static lemlib::ControllerSettings lateral_controller(
 // Angular PID controller
 static lemlib::ControllerSettings angular_controller(
     8,    // proportional gain (kP) - further reduced from 7
-    0.0001, // integral gain (kI) - further reduced
+    0.00001, // integral gain (kI) - further reduced
     50,    // derivative gain (kD) - increased from 100
     3,      // anti windup
     1,      // small error range, in degrees
