@@ -1,6 +1,5 @@
 #include "UUUU_nova/subsystem.hpp"
 #include "auto/auto.hpp"
-#include "lemlib/asset.hpp"
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/rtos.hpp"
 #include "setup.hpp"
@@ -8,7 +7,6 @@
 extern bool off;
 
 ASSET(bl1_v2_txt);
-ASSET(rr1_v2_txt);
 void Blue::left() {
     //intake自動時的動作程式
     pros::Task intake_run([&]() {
