@@ -240,8 +240,8 @@ void Intake::intake_to_arm_count(int rpm, int count) {
 }
 
 //intake遙控
-Pneumatics pneumaticsI('D', 'F', 'A', 'H');
-Arm armI(7, 8);
+Pneumatics pneumaticsI('C', 'F', 'A', 'B','C');
+Arm armI(-13, 1);
 void Intake::remote(pros::Controller Controller) {
     pros::c::optical_raw_s_t raw1 = color->get_raw();
     printf("Red:%d - Blue:%d \n", raw1.red, raw1.blue);

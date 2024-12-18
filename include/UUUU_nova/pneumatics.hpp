@@ -17,11 +17,13 @@
 
 class Pneumatics {
 public:
-    Pneumatics(std::uint8_t ele_port, std::uint8_t intakeup_port, std::uint8_t hook_port, std::uint8_t hand_port);
+    Pneumatics(std::uint8_t ele_port, std::uint8_t intakeup_port, std::uint8_t hook_port, std::uint8_t left_hand_port, std::uint8_t right_hand_port);
     
     void intake_auto(bool sta);
     void hook_auto(bool sta);
-    void hand_auto(bool sta);
+    void left_hand_auto(bool sta);
+    void right_hand_auto(bool sta);
+    
     void remote(pros::Controller Controller);
     
     static bool intake_pne;
@@ -37,7 +39,8 @@ private:
     pros::adi::Pneumatics ele {0,false};
     pros::adi::Pneumatics intake_up {0,false};
     pros::adi::Pneumatics hook {0,false};
-    pros::adi::Pneumatics hand {0,false};
+    pros::adi::Pneumatics left_hand {0,false};
+    pros::adi::Pneumatics right_hand {0,false};
 
     // Members for elevator time lock
     uint32_t elevator_unlock_time;

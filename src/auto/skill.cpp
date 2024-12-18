@@ -33,16 +33,22 @@ void Skill::skill() {
     //get ring 1->stack1
     subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
     chassis.turnToPoint(-27, -24.5,1200);
-    chassis.moveToPoint(-27, -24.5, 1200,{.forwards=true,.maxSpeed=100},true);
+    chassis.moveToPoint(-27, -24.5, 1200,{.forwards=true,.maxSpeed=100},false);
 
     //get ring 2->stack1
     chassis.turnToPoint(23, -47,1200);
-    chassis.moveToPoint(23, -47, 2200,{.forwards=true,.maxSpeed=100},true);   
+    chassis.moveToPoint(23, -47, 2200,{.forwards=true,.maxSpeed=100},false);
 
-    chassis.turnToPoint(0, -55,800);
-    chassis.moveToPoint(12.4, -55, 3200,{.forwards=true,.maxSpeed=100},true);
-    chassis.swingToHeading(180,DriveSide::LEFT,2800);
 
+    chassis.turnToPoint(0, -54,800);
+    chassis.moveToPoint(14, -54, 3200,{.forwards=true,.maxSpeed=60},true);
+    subsystem::arm.pid_arm(Arm::position::INTAKE);
+    chassis.waitUntilDone();
+    chassis.swingToHeading(180,DriveSide::LEFT,2800,{.maxSpeed=80},false);
+    pros::delay(800);
+    subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,100,-30,1);
+    subsystem::arm.pid_arm(Arm::position::MID_IN,50,3,150);
+    subsystem::arm.pid_arm(Arm::position::DOWN, 50, 3, 150);
 
     // chassis.moveToPoint(-47.5,0,1000,{false},true);
     
