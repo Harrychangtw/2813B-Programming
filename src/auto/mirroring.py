@@ -51,7 +51,7 @@ def mirror_coordinates(cpp_content, input_file):
     # Get color and position information
     current_color, opposite_color, current_position, opposite_position = get_class_name(input_file)
     
-    # Replace class definition with proper function name based on both color and position
+    # Replace class definition
     function_pattern = rf'void\s+{current_color}::{current_position}\(\)'
     replacement = f'void {opposite_color}::{opposite_position}()'
     cpp_content = re.sub(function_pattern, replacement, cpp_content, flags=re.IGNORECASE)
@@ -65,7 +65,7 @@ def mirror_coordinates(cpp_content, input_file):
 
     def mirror_angle(angle_val):
         # Convert angle to opposite angle in 360° system
-        new_angle = (180 - float(angle_val)) % 360
+        new_angle = (360 - float(angle_val)) % 360
         if new_angle > 180:
             new_angle -= 360
         return format_number(new_angle)
@@ -75,7 +75,7 @@ def mirror_coordinates(cpp_content, input_file):
         x_val = float(x)
         # Flip signs for coordinates
         mirrored_x = format_number(-x_val) if x_val != 0 else "0"
-        # Mirror angle using 360° system
+        # Mirror angle
         new_angle = mirror_angle(angle)
         return f'setPose({mirrored_x}, {y}, {new_angle})'
 
@@ -99,16 +99,6 @@ def mirror_coordinates(cpp_content, input_file):
         new_angle = mirror_angle(angle)
         return f'moveToPose({mirrored_x}, {y}, {new_angle}, {time}, {options}, {last})'
 
-    def mirror_heading(match):
-        angle = match.group(1)
-        new_angle = f"-{float(angle):.1f}" if float(angle) != 0 else "0.0"
-        return f'turnToHeading({new_angle}'
-
-    def mirror_drive_side(match):
-        side = match.groups()[0]
-        opposite_side = 'LEFT' if side == 'RIGHT' else 'RIGHT'
-        return f'DriveSide::{opposite_side}'
-
     def ensure_assets(content):
         extern_match = re.search(r'extern bool off;\s*', content)
         if not extern_match:
@@ -131,7 +121,7 @@ def mirror_coordinates(cpp_content, input_file):
     cpp_content = re.sub(r'setPose\(([-\d.]+),\s*([-\d.]+),\s*([-\d.]+)\)', 
                         mirror_setpose, cpp_content)
     
-    # Handle swingToPoint separately to mirror both coordinates and drive side
+    # Handle swingToPoint separately
     cpp_content = re.sub(r'swingToPoint\(([-\d.]+),\s*([-\d.]+),\s*DriveSide::(RIGHT|LEFT)((?:,|,\s*{)[^)]*\))', 
                         mirror_swing_point, cpp_content)
     
@@ -142,12 +132,12 @@ def mirror_coordinates(cpp_content, input_file):
     cpp_content = re.sub(r'moveToPose\(([-\d.]+),\s*([-\d.]+),\s*([-\d.]+),\s*(\d+),\s*({[^}]*}),\s*(false|true)\)', 
                         mirror_pose, cpp_content)
     
-    # Handle swingToHeading separately (angle and drive side needs to be mirrored)
+    # Handle swingToHeading
     cpp_content = re.sub(r'swingToHeading\(([-\d.]+),\s*DriveSide::(RIGHT|LEFT)((?:,|,\s*{)[^)]*\))', 
                         lambda m: f'swingToHeading({mirror_angle(m.group(1))}, DriveSide::{"LEFT" if m.group(2)=="RIGHT" else "RIGHT"}{m.group(3)}', 
                         cpp_content)
     
-    # Handle turnToHeading with complete pattern including remaining parameters
+    # Handle turnToHeading
     cpp_content = re.sub(r'turnToHeading\(([-\d.]+)((?:,|,\s*{)[^)]*\))', 
                         lambda m: f'turnToHeading({mirror_angle(m.group(1))}{m.group(2)}', 
                         cpp_content)

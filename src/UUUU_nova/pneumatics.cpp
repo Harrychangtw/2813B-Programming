@@ -90,4 +90,6 @@ void Pneumatics::remote(pros::Controller Controller) {
     if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
         this->left_hand.toggle();
     }
+
+    
 }

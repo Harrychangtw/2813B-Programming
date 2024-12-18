@@ -19,7 +19,7 @@ void Red::left() {
     chassis.turnToPoint(-68, 0,1000);
     pros::delay(200);
     subsystem::arm.pid_arm(Arm::position::MID, 200, 1, 70);
-    subsystem::arm.pid_arm(Arm::position::DOWN, 200, 1, 100);
+
     
     //
     
@@ -30,8 +30,9 @@ void Red::left() {
     
     chassis.waitUntilDone();
     chassis.turnToPoint(-44,0,700);
-    chassis.moveToPoint(-44,0,900,{.forwards=true,.maxSpeed=70},false);
-    
+    chassis.moveToPoint(-44,0,900,{.forwards=true,.maxSpeed=70},true);
+    subsystem::arm.pid_arm(Arm::position::DOWN, 200, 1, 100);
+    chassis.waitUntilDone();
 
 
     subsystem::pneumatics.intake_auto(false);
@@ -51,19 +52,19 @@ void Red::left() {
     pros::delay(200);
     chassis.turnToPoint(-3, 50.5,700);
     
-    chassis.moveToPoint(-9, 49.5, 1200,{.maxSpeed=100},false);
+    chassis.moveToPoint(-8, 50.5, 1500,{.maxSpeed=100},false);
     chassis.swingToHeading(-270, DriveSide::RIGHT,500);
     
     chassis.moveToPoint(-20, 47.5, 600,{false},false);
     
-    chassis.moveToPoint(-9, 46.5, 1200,{.maxSpeed=100},false);
+    chassis.moveToPoint(-8, 46.5, 1500,{.maxSpeed=100},false);
     chassis.swingToHeading(-270, DriveSide::LEFT,500);
 
     pros::delay(200);
 
     //touch bar
     chassis.moveToPoint(-20, 47.5, 600,{false},false);
-    chassis.turnToPoint(-23, 0, 1200);
-    chassis.moveToPoint(-23, -10, 2200,{.forwards=true,.maxSpeed=100},false);
+    chassis.turnToPoint(-15, 0, 700);
+    chassis.moveToPoint(-15, -25, 2200,{.forwards=true,.maxSpeed=100},false);
 
 }
