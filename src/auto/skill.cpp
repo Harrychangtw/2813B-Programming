@@ -26,68 +26,11 @@ void Skill::skill() {
 
     //get stack 1
     chassis.swingToHeading(357, DriveSide::LEFT, 1200);
-    chassis.moveToPoint(-47,-17,1200,{false},false);
-    subsystem::pneumatics.hook_auto(true);
+    chassis.moveToPoint(-47,-23,10300,{false},false);
 
 
-    //ring 1->stack1
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
-    chassis.turnToPoint(-23.5, -23.5, 500);
-    chassis.moveToPoint(-23.5, -23.5, 1200,{true},false);
-
-    //ring 2->stack1
-    chassis.turnToPoint(23.5, -47.5, 500);
-    chassis.moveToPoint(24.5, -47.5, 3200,{true},false);
-    pros::delay(200);
-    
-    //ring below wall stack->arm
-    chassis.turnToHeading(270,700);
-    chassis.moveToPoint(12, -56.4, 1900,{true},true);
-    subsystem::arm.pid_arm(Arm::position::INTAKE);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
-    chassis.waitUntilDone();
-    
-    //ring on wall stack
-    chassis.swingToHeading(180, DriveSide::LEFT, 1800);
-    pros::delay(1200);
-    subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,100,-30,1);    
-    subsystem::arm.pid_arm(Arm::position::MID_IN, 200, 30, 150);
-    pros::delay(200);
-        subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,600,180,1);    
-    //bottom left 4 rings
-    chassis.moveToPoint(3, -47, 1200,{false},true);
-    subsystem::arm.pid_arm(Arm::position::DOWN, 200, 1, 100);
-    chassis.waitUntilDone();
-    chassis.turnToHeading(270,1200);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
-    chassis.moveToPoint(-10,-48, 500,{.maxSpeed=100});
-    chassis.moveToPoint(-47,-50, 3200,{.maxSpeed=50});
-    chassis.swingToHeading(180, DriveSide::RIGHT, 1200);
-    chassis.moveToPoint(-40,-58, 3200,{.maxSpeed=60});
-    pros::delay(500);
-    //mobile stack on possitive corner
-    
-    chassis.swingToHeading(40, DriveSide::RIGHT, 600);
-    chassis.moveToPoint(-55,-69, 2200,{.forwards=false,.maxSpeed=100},false);
-    subsystem::intake.stop();
-
-    subsystem::pneumatics.hook_auto(false);
-
-    //go to the ceneter
-    chassis.swingToPoint(0, 0,DriveSide::RIGHT, 800);
-    subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,600,36000,1);
-    chassis.moveToPoint(10, -3, 3800,{.forwards=true,.maxSpeed=100});
-
-    //get stack 2
-    chassis.swingToHeading(90,DriveSide::RIGHT, 1200);
-    chassis.moveToPoint(-50,10, 2200,{false},false);
-    
-    subsystem::pneumatics.hook_auto(true);
 
     
-    chassis.swingToPoint(-23,30,DriveSide::RIGHT, 1200);
-    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
-    chassis.moveToPoint(-23,30, 1200,{true},false);
     // subsystem::arm.pid_arm(Arm::position::MID, 50, 5, 150);
     // chassis.moveToPoint(-60.5,0,1000,{true},false);
     // subsystem::arm.pid_arm(Arm::position::MID_IN, 100, 3, 50);
