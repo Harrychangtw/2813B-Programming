@@ -77,8 +77,8 @@ void find_tracking_center(float turnVoltage, uint32_t time) {
 }
 
 void autonomous() {
-   team = false;//true(紅隊、skill) & falses(藍隊)
-   Blue::left();
+   team = true;//true(紅隊、skill) & falses(藍隊)
+   Red::right();
    off = true;
    
 

@@ -56,37 +56,47 @@ def mirror_coordinates(cpp_content, input_file):
     replacement = f'void {opposite_color}::{opposite_position}()'
     cpp_content = re.sub(function_pattern, replacement, cpp_content, flags=re.IGNORECASE)
 
+    def format_number(num):
+        # If number is effectively an integer, return it as integer
+        if abs(num - round(num)) < 1e-10:
+            return str(round(num))
+        # Otherwise return with one decimal place
+        return f"{num:.1f}"
+
+    def mirror_angle(angle_val):
+        # Convert angle to opposite angle in 360° system
+        new_angle = (180 - float(angle_val)) % 360
+        if new_angle > 180:
+            new_angle -= 360
+        return format_number(new_angle)
+
     def mirror_setpose(match):
         x, y, angle = match.groups()
         x_val = float(x)
-        angle_val = float(angle)
-        # Flip signs
-        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
-        new_angle = f"{-angle_val:.1f}" if angle_val != 0 else "0.0"
+        # Flip signs for coordinates
+        mirrored_x = format_number(-x_val) if x_val != 0 else "0"
+        # Mirror angle using 360° system
+        new_angle = mirror_angle(angle)
         return f'setPose({mirrored_x}, {y}, {new_angle})'
 
     def mirror_point(match):
         command, x, y, rest = match.groups()
         x_val = float(x)
-        # Flip sign
-        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
+        mirrored_x = format_number(-x_val) if x_val != 0 else "0"
         return f'{command}Point({mirrored_x}, {y}{rest}'
 
     def mirror_swing_point(match):
         x, y, drive_side, rest = match.groups()
         x_val = float(x)
-        # Flip sign
-        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
+        mirrored_x = format_number(-x_val) if x_val != 0 else "0"
         opposite_side = 'LEFT' if drive_side == 'RIGHT' else 'RIGHT'
         return f'swingToPoint({mirrored_x}, {y}, DriveSide::{opposite_side}{rest}'
 
     def mirror_pose(match):
         x, y, angle, time, options, last = match.groups()
         x_val = float(x)
-        angle_val = float(angle)
-        # Flip signs
-        mirrored_x = f"{-x_val:.1f}" if x_val != 0 else "0.0"
-        new_angle = f"{-angle_val:.1f}" if angle_val != 0 else "0.0"
+        mirrored_x = format_number(-x_val) if x_val != 0 else "0"
+        new_angle = mirror_angle(angle)
         return f'moveToPose({mirrored_x}, {y}, {new_angle}, {time}, {options}, {last})'
 
     def mirror_heading(match):
@@ -134,12 +144,12 @@ def mirror_coordinates(cpp_content, input_file):
     
     # Handle swingToHeading separately (angle and drive side needs to be mirrored)
     cpp_content = re.sub(r'swingToHeading\(([-\d.]+),\s*DriveSide::(RIGHT|LEFT)((?:,|,\s*{)[^)]*\))', 
-                        lambda m: f'swingToHeading({-float(m.group(1)):.1f}, DriveSide::{"LEFT" if m.group(2)=="RIGHT" else "RIGHT"}{m.group(3)}', 
+                        lambda m: f'swingToHeading({mirror_angle(m.group(1))}, DriveSide::{"LEFT" if m.group(2)=="RIGHT" else "RIGHT"}{m.group(3)}', 
                         cpp_content)
     
     # Handle turnToHeading with complete pattern including remaining parameters
     cpp_content = re.sub(r'turnToHeading\(([-\d.]+)((?:,|,\s*{)[^)]*\))', 
-                        lambda m: f'turnToHeading({-float(m.group(1)):.1f}{m.group(2)}', 
+                        lambda m: f'turnToHeading({mirror_angle(m.group(1))}{m.group(2)}', 
                         cpp_content)
 
     # Update path in chassis.follow
