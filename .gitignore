@@ -16,4 +16,6 @@ temp.errors
 *.ini
 .d/
 
+/src/auto/*.cpp
+
 
