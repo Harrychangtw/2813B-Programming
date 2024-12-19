@@ -1,61 +1,73 @@
 #include "UUUU_nova/subsystem.hpp"
 #include "auto/auto.hpp"
-#include "lemlib/asset.hpp"
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/rtos.hpp"
 #include "setup.hpp"
-#include <future>
 
 //關掉自動時執行的task
 extern bool off;
 
+
+ASSET(rr1_v2_txt);
+ASSET(bl1_v2_txt);
 void Blue::right() {
+    //intake自動時的動作程式
     pros::Task intake_run([&]() {
         while(off) {
             subsystem::intake.auto_run();
             pros::delay(10);
         }
     });
-
-    chassis.setPose(58, 11, 90);
-    chassis.swingToPoint(68, 0,DriveSide::LEFT,1000,{},true);
+    chassis.setPose(58, 10, 90);
+    chassis.turnToPoint(68, 0,1000);
     pros::delay(200);
-    subsystem::arm.pid_arm(Arm::position::MID, 50, 3, 150);
+    subsystem::arm.pid_arm(Arm::position::MID, 200, 1, 70);
+
     
-    chassis.moveToPoint(60,7,1000,{true},false);
-    subsystem::arm.pid_arm(Arm::position::MID_IN, 100, 3, 50);
+    //
     
-    chassis.moveToPoint(17,27,1200,{.forwards=false,.maxSpeed=100},false);
-    subsystem::pneumatics.hook_auto(true);
-    pros::delay(300);
-      subsystem::intake.auto_spin(Intake::mode::INTAKE, true, 600);
+    chassis.moveToPoint(47, 20,1200,{.forwards=false,.maxSpeed=100},true);
 
-
-
-
-
-    chassis.moveToPoint(23.5,50,1200,{.forwards=true,.maxSpeed=100},true);
-
-    subsystem::arm.pid_arm(Arm::position::DOWN, 50, 3, 150);
+    subsystem::pneumatics.intake_auto(true);
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
+    
     chassis.waitUntilDone();
-    pros::delay(300);
+    chassis.turnToPoint(44, 0,700);
+    chassis.moveToPoint(44, 0,900,{.forwards=true,.maxSpeed=70},true);
+    subsystem::arm.pid_arm(Arm::position::DOWN, 200, 1, 100);
+    chassis.waitUntilDone();
 
-    chassis.turnToPoint(3.5, 43.5, 1200);
 
-    chassis.moveToPose(8,43.5,270,1500,{.forwards=true,.maxSpeed=90},false);
-
+    subsystem::pneumatics.intake_auto(false);
+    
+    chassis.moveToPoint(44, 14,1500,{.forwards=false,.maxSpeed=70},false);
+    subsystem::intake.auto_spin(Intake::mode::SPINFOR, true,500,500,1);
     pros::delay(500);
-
-    chassis.moveToPose(30,49,270,1000,{.forwards=false,.maxSpeed=90,.earlyExitRange=5},false);
+    chassis.turnToHeading(120, 500);
+    chassis.moveToPoint(20.5, 26, 1200,{false},true);
+    pros::delay(600);
+    subsystem::pneumatics.hook_auto(true);
+        chassis.waitUntilDone();
+    subsystem::intake.auto_spin(Intake::mode::INTAKE, true,600,0,1);
     
-
     
-    chassis.moveToPoint(8,50,1500,{.forwards=true,.maxSpeed=90},false);
-
-    pros::delay(900);
+    chassis.turnToPoint(23.5, 48.5, 600);
+    chassis.moveToPoint(23.5, 47, 1200,{},false);
+    pros::delay(200);
+    chassis.turnToPoint(3, 53.5,700);
     
+    chassis.moveToPoint(7, 52, 1500,{.maxSpeed=100},false);
 
-    chassis.moveToPoint(23,7,2200,{.forwards=true,.maxSpeed=100},false);
+    chassis.moveToPoint(20, 50.5, 600,{false},false);
+    
+    chassis.moveToPoint(7, 48.5, 1500,{.maxSpeed=100},false);
+    chassis.swingToHeading(-90, DriveSide::RIGHT,500);
 
+    pros::delay(200);
+
+    //touch bar
+    chassis.moveToPoint(20, 47.5, 600,{false},false);
+    chassis.turnToPoint(15, 0, 700);
+    chassis.moveToPoint(15, -25, 2200,{.forwards=true,.maxSpeed=100},false);
 
 }

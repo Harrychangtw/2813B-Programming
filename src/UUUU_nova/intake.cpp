@@ -99,18 +99,19 @@ void Intake::SWColor() {
 
 //自動時，給予intake作動，mode : INTAKE(正轉), STOP(停止), OUTTAKE(反轉), SPINFOR(固定角度)
 //colorSW : 預設false(單純intake), true(排除錯誤顏色)，val 旋轉速度 預設600RPM，deg(旋轉角度),count(顆數)0一顆
-void Intake::auto_spin(Intake::mode mode, bool colorSW, int val, int deg, int count) {
+void Intake::auto_spin(Intake::mode mode, bool colorSW, int val, int deg, int count,bool stuck) {
     on_off = mode;
     look = colorSW;
     auto_val = val;
     auto_deg = deg;
     auto_countin = count;
+    stuckcheck = stuck;
 }
 
 //intake自動時的動作程式
 void Intake::auto_run() {
     if(on_off == Intake::mode::INTAKE) {
-        this->intake(600,true,false);
+        this->intake(600,true,stuckcheck);
         if(look) {
             this->SWColor();
         }

@@ -8,7 +8,7 @@ namespace subsystem{
     static Intake intake(20, 9, 2, 'H', 4);//{-13,14}, 
 
     //氣動的函式庫
-    static Pneumatics pneumatics('D', 'F', 'A', 'B','C');//ele:left hand hand: right hand
+    static Pneumatics pneumatics('G', 'F', 'A', 'B','C');//ele:left hand hand: right hand
 
     //手臂的函式庫
     static Arm arm(-13, 1);

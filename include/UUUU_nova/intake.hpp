@@ -67,7 +67,7 @@ public:
      *
      * count : 吸ring至手臂前端的數量
      */
-    void auto_spin(Intake::mode mode, bool colorSW = false, int val = 600, int deg = 0, int count = 0);
+    void auto_spin(Intake::mode mode, bool colorSW = false, int val = 600, int deg = 0, int count = 0, bool stuck=false);
 
     //intake自動時的動作程式
     void auto_run();
@@ -116,6 +116,8 @@ private:
     uint32_t t = 0;
 
     int ti = 0;
+
+    bool stuckcheck=false;
 
     // std::unique_ptr<pros::MotorGroup> intake_m tors;    
 
