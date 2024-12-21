@@ -122,7 +122,7 @@ void Arm::remote(pros::Controller Controller) {
             new_control = false;
             this->down();
         }
-        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {//待測試
+        else if(Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {//待測試
             move_break = true;
             pros::delay(10);
             new_control = true;

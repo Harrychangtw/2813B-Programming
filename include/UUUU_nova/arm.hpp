@@ -29,7 +29,7 @@ public:
         UP = 23418,
         MID = 21727,
         MID_IN = 14300, 
-        INTAKE = 3178,
+        INTAKE = 3378,
         DOWN = 1088
     };
 

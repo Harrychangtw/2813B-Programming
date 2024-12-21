@@ -32,7 +32,7 @@ void initialize() {
 
 
 
-
+    team = true;
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 }
 
@@ -77,8 +77,8 @@ void find_tracking_center(float turnVoltage, uint32_t time) {
 }
 
 void autonomous() {
-   team = false;//true(紅隊、skill) & falses(藍隊)
-   Blue::right();
+   //true(紅隊、skill) & falses(藍隊)
+    Red::right();
    off = true;
    
 
@@ -145,7 +145,7 @@ void opcontrol() {
 
 
     printf("opcontrol\n");
-   
+    
     off = false;
     chassis.setBrakeMode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_COAST);
     controller.clear();
