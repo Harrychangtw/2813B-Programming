@@ -26,8 +26,8 @@ public:
     //手臂目標位置
     enum position {
         //put low
-        UP = 23418,
-        MID = 21727,
+        UP = 15354,
+        MID = 15054,
         MID_IN = 14300, 
         INTAKE = 3378,
         DOWN = 1088

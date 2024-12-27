@@ -60,9 +60,6 @@ void Intake::outtake(int rpm){
 void Intake::SWColor() {
     pros::c::optical_raw_s_t raw = color->get_raw();
     if(team == true) {//teamRed
-        //printf("val:%d \n", raw.blue);//顯示ＲＧＢ值
-  
-            // printf("time:%u - t:%u\n", pros::millis(), t);
 
         if(raw.blue-raw.red>raw.red*0.3&&raw.blue/raw.red>1.1) {//看到藍色的數值
             this->color_air.extend();
@@ -265,7 +262,7 @@ void Intake::remote(pros::Controller Controller) {
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
         // controller.print(1,0,"Intake Sort Mode");
         this->SWColor();
-        this->intake(600);
+        this->intake(400);
     }
     else if(Controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
         // controller.print(1,0,"Intake Mode");
