@@ -1,4 +1,8 @@
+
+#include <cstdint>
+#include <iostream>
 #include "UUUU_nova/arm.hpp"
+
 #include "pros/misc.h"
 #include "pros/motors.h"
 #include "setup.hpp"

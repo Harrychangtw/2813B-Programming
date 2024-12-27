@@ -29,10 +29,9 @@ void initialize() {
     printf("initialize\n");
 	// pros::lcd::initialize();
 	chassis.calibrate();
+        team = true;
 
 
-
-    team = true;
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 }
 
@@ -79,6 +78,9 @@ void find_tracking_center(float turnVoltage, uint32_t time) {
 
 void autonomous() {
    //true(紅隊、skill) & falses(藍隊)
+    
+
+    Red::solo();
    off = true;
    team=true;
    Skill::skill();
