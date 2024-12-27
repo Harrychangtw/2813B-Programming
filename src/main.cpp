@@ -76,11 +76,12 @@ void find_tracking_center(float turnVoltage, uint32_t time) {
   std::cout << "Go to https://www.desmos.com/calculator/rxdoxxil1j to solve for offsets." << std::endl;
 }
 
+
 void autonomous() {
    //true(紅隊、skill) & falses(藍隊)
-    Red::right();
    off = true;
-   
+   team=true;
+   Skill::skill();
 
     /*
     switch(Teamselector::get_auton()) {
