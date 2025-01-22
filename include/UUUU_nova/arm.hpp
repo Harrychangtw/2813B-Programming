@@ -29,8 +29,9 @@ public:
         UP = 15354,
         MID = 15054,
         MID_IN = 14300, 
+        MID_POS = 10000,
         INTAKE = 3378,
-        DOWN = 1088
+        DOWN = 1088,
     };
 
     //手臂遙控抬升

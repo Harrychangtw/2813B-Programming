@@ -129,8 +129,8 @@ void Intake::auto_run() {
         spindone = true;
         int i = 0;
         while((auto_countin - i) > 1) {
-            if(this->distance->get_distance() < 40) {
-                while(this->distance->get_distance() < 40) {
+            if(this->distance->get_distance() < 60) {
+                while(this->distance->get_distance() < 60) {
                     this->intake(auto_val);
                 }
                 i++;
