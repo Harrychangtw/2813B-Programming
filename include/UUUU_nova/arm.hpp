@@ -30,12 +30,12 @@ public:
         MID = 15054,
         MID_IN = 14300, 
         MID_POS = 10000,
-        INTAKE = 3378,
+        INTAKE = 2978,
         DOWN = 1088,
     };
 
     //手臂遙控抬升
-    void up();
+void up();
 
     //手臂遙控下降
     void down();
