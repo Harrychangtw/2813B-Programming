@@ -11,5 +11,5 @@ namespace subsystem{
     static Pneumatics pneumatics('G', 'F', 'A', 'B','C');//ele:left hand hand: right hand
 
     //手臂的函式庫
-    static Arm arm(-15, 1);
+    static Arm arm(-8, 1);
 }

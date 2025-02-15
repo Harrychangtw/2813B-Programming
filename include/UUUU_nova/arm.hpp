@@ -26,12 +26,13 @@ public:
     //手臂目標位置
     enum position {
         //put low
-        UP = 15354,
+        UP = 15000,
         MID = 15054,
         MID_IN = 14300, 
         MID_POS = 10000,
-        INTAKE = 3378,
-        DOWN = 1088,
+        INTAKE =2750,
+        AIR = 5000,
+        DOWN = 1063,
     };
 
     //手臂遙控抬升
