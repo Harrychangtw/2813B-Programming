@@ -36,7 +36,7 @@ public:
     };
 
     //手臂遙控抬升
-    void up();
+void up();
 
     //手臂遙控下降
     void down();
